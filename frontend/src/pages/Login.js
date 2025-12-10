@@ -3,7 +3,9 @@ import { Truck } from 'lucide-react';
 
 const Login = () => {
   const handleLogin = () => {
-    const redirectUrl = window.location.origin + '/dashboard';
+    // Redirect to root (/) instead of /dashboard to avoid protected route issues
+    // The AuthCallback will handle navigation to dashboard after authentication
+    const redirectUrl = window.location.origin + '/';
     window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
   };
 

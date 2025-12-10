@@ -132,6 +132,212 @@ const Reports = () => {
               <TabsTrigger value="cost">Operating Cost</TabsTrigger>
             </TabsList>
 
+            <TabsContent value="tco">
+              <Card className="bg-gray-900 border-gray-800 mb-6">
+                <CardHeader>
+                  <CardTitle className="text-white">Total Cost of Ownership (TCO) - Biaya Total Kepemilikan</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-400 text-sm mb-4">TCO = Total Operating Cost + Depreciation</p>
+                  <div className="space-y-4">
+                    {vehicleTCO.slice(0, 10).map((vehicle, idx) => (
+                      <div key={vehicle.vehicle_id} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
+                        <div className="flex items-start gap-4">
+                          {vehicle.photos && vehicle.photos.length > 0 && (
+                            <img 
+                              src={vehicle.photos[0]} 
+                              alt={vehicle.plate}
+                              className="w-24 h-24 rounded-lg object-cover"
+                            />
+                          )}
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-2">
+                              <div>
+                                <h3 className="text-lg font-bold text-white">{vehicle.plate}</h3>
+                                <p className="text-sm text-gray-400">{vehicle.brand} {vehicle.model}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-2xl font-bold text-white">Rp {(vehicle.tco / 1000000).toFixed(1)}M</p>
+                                <p className="text-xs text-gray-400">TCO</p>
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-3 gap-3 text-xs">
+                              <div className="p-2 bg-gray-700 rounded">
+                                <p className="text-gray-400">Fuel</p>
+                                <p className="text-white font-semibold">Rp {(vehicle.fuelCost / 1000).toLocaleString()}K</p>
+                              </div>
+                              <div className="p-2 bg-gray-700 rounded">
+                                <p className="text-gray-400">Maintenance</p>
+                                <p className="text-white font-semibold">Rp {(vehicle.maintenanceCost / 1000).toLocaleString()}K</p>
+                              </div>
+                              <div className="p-2 bg-gray-700 rounded">
+                                <p className="text-gray-400">Depreciation</p>
+                                <p className="text-white font-semibold">Rp {(vehicle.depreciation / 1000).toLocaleString()}K</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="downtime">
+              <Card className="bg-gray-900 border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-white">Vehicle Downtime Analysis - Kendaraan Paling Lama Downtime</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {vehicleDowntime.slice(0, 10).map((vehicle, idx) => (
+                      <div key={vehicle.vehicle_id} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
+                        <div className="flex items-center gap-4">
+                          {vehicle.photos && vehicle.photos.length > 0 && (
+                            <img 
+                              src={vehicle.photos[0]} 
+                              alt={vehicle.plate}
+                              className="w-20 h-20 rounded-lg object-cover"
+                            />
+                          )}
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-2">
+                              <div>
+                                <h3 className="text-lg font-bold text-white">{vehicle.plate}</h3>
+                                <p className="text-sm text-gray-400">{vehicle.brand} {vehicle.model}</p>
+                              </div>
+                              <Badge className={
+                                vehicle.downtimeDays > 20 ? 'bg-red-500/20 text-red-400' :
+                                vehicle.downtimeDays > 10 ? 'bg-orange-500/20 text-orange-400' :
+                                'bg-green-500/20 text-green-400'
+                              }>
+                                {vehicle.downtimeDays} days downtime
+                              </Badge>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm">
+                              <div>
+                                <p className="text-gray-400">Maintenance Count</p>
+                                <p className="text-white font-semibold">{vehicle.maintenanceCount} times</p>
+                              </div>
+                              <div>
+                                <p className="text-gray-400">Status</p>
+                                <p className="text-white font-semibold">{vehicle.status}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="reliability">
+              <Card className="bg-gray-900 border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-white">Most Reliable Vehicles - Kendaraan Paling Reliable</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {vehicleReliability.slice(0, 10).map((vehicle, idx) => (
+                      <div key={vehicle.vehicle_id} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
+                        <div className="flex items-center gap-4">
+                          {vehicle.photos && vehicle.photos.length > 0 && (
+                            <img 
+                              src={vehicle.photos[0]} 
+                              alt={vehicle.plate}
+                              className="w-20 h-20 rounded-lg object-cover"
+                            />
+                          )}
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-2">
+                              <div>
+                                <h3 className="text-lg font-bold text-white">#{idx + 1} {vehicle.plate}</h3>
+                                <p className="text-sm text-gray-400">{vehicle.brand} {vehicle.model}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-2xl font-bold text-green-400">{vehicle.reliabilityScore.toFixed(1)}</p>
+                                <p className="text-xs text-gray-400">Reliability Score</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm">
+                              <div>
+                                <p className="text-gray-400">Maintenance</p>
+                                <p className="text-white font-semibold">{vehicle.maintenanceCount} times</p>
+                              </div>
+                              <div>
+                                <p className="text-gray-400">Total Cost</p>
+                                <p className="text-white font-semibold">Rp {(vehicle.totalMaintenanceCost / 1000000).toFixed(1)}M</p>
+                              </div>
+                            </div>
+                            <div className="mt-2 w-full bg-gray-700 rounded-full h-2">
+                              <div 
+                                className="bg-green-500 h-2 rounded-full" 
+                                style={{ width: `${Math.min(vehicle.reliabilityScore, 100)}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="fuel">
+              <Card className="bg-gray-900 border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-white">Fuel Efficiency Rankings - Kendaraan Paling Efisien BBM</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {vehicleFuelEfficiency.slice(0, 10).map((vehicle, idx) => (
+                      <div key={vehicle.vehicle_id} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
+                        <div className="flex items-center gap-4">
+                          {vehicle.photos && vehicle.photos.length > 0 && (
+                            <img 
+                              src={vehicle.photos[0]} 
+                              alt={vehicle.plate}
+                              className="w-20 h-20 rounded-lg object-cover"
+                            />
+                          )}
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-2">
+                              <div>
+                                <h3 className="text-lg font-bold text-white">#{idx + 1} {vehicle.plate}</h3>
+                                <p className="text-sm text-gray-400">{vehicle.brand} {vehicle.model}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-2xl font-bold text-green-400">{vehicle.fuelEfficiency} km/L</p>
+                                <p className="text-xs text-gray-400">Efficiency</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm">
+                              <div>
+                                <p className="text-gray-400">Total Fuel Used</p>
+                                <p className="text-white font-semibold">{vehicle.totalFuelUsed.toFixed(1)}L</p>
+                              </div>
+                              <div>
+                                <p className="text-gray-400">Distance</p>
+                                <p className="text-white font-semibold">{vehicle.totalDistance.toLocaleString()} km</p>
+                              </div>
+                              <div>
+                                <p className="text-gray-400">Fuel Type</p>
+                                <p className="text-white font-semibold">{vehicle.fuel_type}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
             <TabsContent value="cost">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-gray-900 border-gray-800">

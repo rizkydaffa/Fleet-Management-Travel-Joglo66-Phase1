@@ -63,9 +63,9 @@ const Vehicles = () => {
                   Add Vehicle
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 text-white border-gray-700">
                 <DialogHeader>
-                  <DialogTitle>Add New Vehicle</DialogTitle>
+                  <DialogTitle className="text-white">Add New Vehicle</DialogTitle>
                 </DialogHeader>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
                   <div>

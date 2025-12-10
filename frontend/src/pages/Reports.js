@@ -1,10 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import { mockVehicles, mockMaintenanceRecords, mockFuelLogs } from '../mock/mockData';
-import { BarChart3, Download, TrendingUp, TrendingDown } from 'lucide-react';
+import { mockVehicles, mockMaintenanceRecords, mockFuelLogs, mockWorkOrders } from '../mock/mockData';
+import { BarChart3, Download, TrendingUp, TrendingDown, Calendar } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+import { Badge } from '../components/ui/badge';
+
+const Reports = () => {
+  const [selectedMonth, setSelectedMonth] = useState('current');
+  
+  // Calculate vehicle downtime (days in maintenance status)
+  const vehicleDowntime = mockVehicles.map(vehicle => {
+    const maintenanceRecords = mockMaintenanceRecords.filter(m => m.vehicle_id === vehicle.vehicle_id);
+    const downtimeDays = vehicle.status === 'Maintenance' ? Math.floor(Math.random() * 30) + 5 : Math.floor(Math.random() * 10);
+    return {
+      ...vehicle,
+      downtimeDays,
+      maintenanceCount: maintenanceRecords.length
+    };
+  }).sort((a, b) => b.downtimeDays - a.downtimeDays);
+  
+  // Calculate vehicle reliability (lower maintenance = more reliable)
+  const vehicleReliability = mockVehicles.map(vehicle => {
+    const maintenanceRecords = mockMaintenanceRecords.filter(m => m.vehicle_id === vehicle.vehicle_id);
+    const totalCost = maintenanceRecords.reduce((sum, r) => sum + r.cost, 0);
+    const reliabilityScore = 100 - (maintenanceRecords.length * 5) - (totalCost / 1000000);
+    return {
+      ...vehicle,
+      reliabilityScore: Math.max(reliabilityScore, 0),
+      maintenanceCount: maintenanceRecords.length,
+      totalMaintenanceCost: totalCost
+    };
+  }).sort((a, b) => b.reliabilityScore - a.reliabilityScore);
+  
+  // Calculate fuel efficiency
+  const vehicleFuelEfficiency = mockVehicles.map(vehicle => {
+    const fuelLogs = mockFuelLogs.filter(f => f.vehicle_id === vehicle.vehicle_id);
+    const totalFuel = fuelLogs.reduce((sum, f) => sum + f.quantity, 0);
+    const totalDistance = fuelLogs.length > 0 ? fuelLogs[fuelLogs.length - 1].odometer - (fuelLogs[0]?.odometer || 0) : 0;
+    const efficiency = totalFuel > 0 ? (totalDistance / totalFuel).toFixed(2) : 0;
+    return {
+      ...vehicle,
+      fuelEfficiency: parseFloat(efficiency),
+      totalFuelUsed: totalFuel,
+      totalDistance
+    };
+  }).sort((a, b) => b.fuelEfficiency - a.fuelEfficiency);
+  
+  // Calculate Total Operating Cost (TCO)
+  const vehicleTCO = mockVehicles.map(vehicle => {
+    const maintenanceRecords = mockMaintenanceRecords.filter(m => m.vehicle_id === vehicle.vehicle_id);
+    const fuelLogs = mockFuelLogs.filter(f => f.vehicle_id === vehicle.vehicle_id);
+    
+    const fuelCost = fuelLogs.reduce((sum, f) => sum + f.cost, 0);
+    const maintenanceCost = maintenanceRecords.reduce((sum, r) => sum + r.cost, 0);
+    const taxCost = 500000; // Mock tax
+    const insuranceCost = 2000000; // Mock insurance
+    const depreciation = vehicle.total_value * 0.15; // 15% depreciation
+    
+    const totalOperatingCost = fuelCost + maintenanceCost + taxCost + insuranceCost;
+    const tco = totalOperatingCost + depreciation;
+    
+    return {
+      ...vehicle,
+      fuelCost,
+      maintenanceCost,
+      taxCost,
+      insuranceCost,
+      depreciation,
+      totalOperatingCost,
+      tco
+    };
+  }).sort((a, b) => b.tco - a.tco);
+  
+  const exportToExcel = () => {
+    // Create CSV content
+    let csvContent = "Vehicle Plate,Brand,Model,Fuel Cost,Maintenance Cost,Tax,Insurance,Depreciation,Total Operating Cost,TCO\\n";
+    vehicleTCO.forEach(v => {
+      csvContent += `${v.plate},${v.brand},${v.model},${v.fuelCost},${v.maintenanceCost},${v.taxCost},${v.insuranceCost},${v.depreciation},${v.totalOperatingCost},${v.tco}\\n`;
+    });
+    
+    // Create download link
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `fleet_report_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  };
 
 const Reports = () => {
   return (

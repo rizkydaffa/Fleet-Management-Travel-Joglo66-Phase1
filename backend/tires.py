@@ -2,16 +2,14 @@ from fastapi import APIRouter, HTTPException, Depends
 from datetime import datetime, timezone
 import uuid
 from typing import List
-from motor.motor_asyncio import AsyncIOMotorClient
-import os
 from models import Tire, TireCreate, User
 from auth import get_current_user
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
 
 tires_router = APIRouter(prefix="/tires", tags=["Tires"])
+
+# Database will be injected from server.py
+db = None
 
 @tires_router.get("", response_model=List[Tire])
 async def get_tires(current_user: User = Depends(get_current_user)):

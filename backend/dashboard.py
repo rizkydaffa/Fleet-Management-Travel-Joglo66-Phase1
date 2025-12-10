@@ -1,15 +1,13 @@
 from fastapi import APIRouter, HTTPException, Depends
 from datetime import datetime, timezone, timedelta
-from motor.motor_asyncio import AsyncIOMotorClient
-import os
 from models import DashboardStats, User
 from auth import get_current_user
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
 
 dashboard_router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
+
+# Database will be injected from server.py
+db = None
 
 @dashboard_router.get("/stats", response_model=DashboardStats)
 async def get_dashboard_stats(current_user: User = Depends(get_current_user)):

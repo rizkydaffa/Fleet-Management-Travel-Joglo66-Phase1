@@ -2,16 +2,14 @@ from fastapi import APIRouter, HTTPException, Depends
 from datetime import datetime, timezone
 import uuid
 from typing import List
-from motor.motor_asyncio import AsyncIOMotorClient
-import os
 from models import Driver, DriverCreate, DriverAssignment, DriverAssignmentCreate, User
 from auth import get_current_user
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
 
 drivers_router = APIRouter(prefix="/drivers", tags=["Drivers"])
+
+# Database will be injected from server.py
+db = None
 
 @drivers_router.get("", response_model=List[Driver])
 async def get_drivers(current_user: User = Depends(get_current_user)):

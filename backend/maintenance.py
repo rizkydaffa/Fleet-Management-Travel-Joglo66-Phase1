@@ -2,17 +2,18 @@ from fastapi import APIRouter, HTTPException, Depends
 from datetime import datetime, timezone
 import uuid
 from typing import List
-from motor.motor_asyncio import AsyncIOMotorClient
-import os
 from models import MaintenanceRecord, MaintenanceRecordCreate, WorkOrder, WorkOrderCreate, User
 from auth import get_current_user
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
 
 maintenance_router = APIRouter(prefix="/maintenance", tags=["Maintenance"])
+
+# Database will be injected from server.py
+db = None
 work_orders_router = APIRouter(prefix="/work-orders", tags=["Work Orders"])
+
+# Database will be injected from server.py
+db = None
 
 # Maintenance Records
 @maintenance_router.get("", response_model=List[MaintenanceRecord])

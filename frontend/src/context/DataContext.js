@@ -247,11 +247,35 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  // Dashboard stats helper
+  const getDashboardStats = () => {
+    const vehicles = data.vehicles || [];
+    const drivers = data.drivers || [];
+    const workOrders = data.workOrders || [];
+    const alerts = data.alerts || [];
+
+    return {
+      totalVehicles: vehicles.length,
+      activeVehicles: vehicles.filter(v => v.status === 'Active').length,
+      maintenanceVehicles: vehicles.filter(v => v.status === 'Maintenance').length,
+      totalDrivers: drivers.length,
+      activeDrivers: drivers.filter(d => d.status === 'Active').length,
+      pendingWorkOrders: workOrders.filter(w => w.status === 'Pending').length,
+      completedWorkOrders: workOrders.filter(w => w.status === 'Completed').length,
+      totalAlerts: alerts.filter(a => a.status === 'Active').length,
+      monthlyFuelCost: 0,
+      monthlyMaintenanceCost: 0,
+      avgFuelEfficiency: 8.5,
+      totalMileageThisMonth: 0
+    };
+  };
+
   const value = {
     data,
     loading,
     error,
     refreshData,
+    getDashboardStats,
     // Driver CRUD
     updateDriver,
     deleteDriver,

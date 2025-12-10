@@ -120,10 +120,117 @@ const Tires = () => {
               <h1 className="text-3xl font-bold text-white">Tire Management</h1>
               <p className="text-gray-400 mt-1">Track tire installation and maintenance</p>
             </div>
-            <Button className="mt-4 sm:mt-0">
-              <Plus className="w-4 h-4 mr-2" />
-              Add Tire Record
-            </Button>
+            <Dialog open={isAddModalOpen || editingTire !== null} onOpenChange={(open) => {
+              if (!open) {
+                setIsAddModalOpen(false);
+                setEditingTire(null);
+                resetForm();
+              }
+            }}>
+              <DialogTrigger asChild>
+                <Button className="mt-4 sm:mt-0" onClick={() => setIsAddModalOpen(true)}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Tire Record
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl bg-gray-900 text-white border-gray-700">
+                <DialogHeader>
+                  <DialogTitle className="text-white">{editingTire ? 'Edit Tire Record' : 'Add Tire Record'}</DialogTitle>
+                </DialogHeader>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+                  <div className="md:col-span-2">
+                    <Label htmlFor="vehicle" className="text-gray-300">Vehicle *</Label>
+                    <Select value={tireForm.vehicle_id} onValueChange={(val) => setTireForm({...tireForm, vehicle_id: val})}>
+                      <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
+                        <SelectValue placeholder="Select vehicle" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                        {vehicles.map(v => (
+                          <SelectItem key={v.vehicle_id} value={v.vehicle_id}>{v.plate} - {v.brand} {v.model}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="position" className="text-gray-300">Position *</Label>
+                    <Select value={tireForm.position} onValueChange={(val) => setTireForm({...tireForm, position: val})}>
+                      <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
+                        <SelectValue placeholder="Select position" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                        <SelectItem value="Front Left">Front Left</SelectItem>
+                        <SelectItem value="Front Right">Front Right</SelectItem>
+                        <SelectItem value="Rear Left">Rear Left</SelectItem>
+                        <SelectItem value="Rear Right">Rear Right</SelectItem>
+                        <SelectItem value="Spare">Spare</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="brand" className="text-gray-300">Brand *</Label>
+                    <Input 
+                      id="brand" 
+                      placeholder="Bridgestone" 
+                      value={tireForm.brand}
+                      onChange={(e) => setTireForm({...tireForm, brand: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="size" className="text-gray-300">Size *</Label>
+                    <Input 
+                      id="size" 
+                      placeholder="195/70R15" 
+                      value={tireForm.size}
+                      onChange={(e) => setTireForm({...tireForm, size: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="installDate" className="text-gray-300">Installation Date *</Label>
+                    <Input 
+                      id="installDate" 
+                      type="date" 
+                      value={tireForm.installation_date}
+                      onChange={(e) => setTireForm({...tireForm, installation_date: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="mileage" className="text-gray-300">Mileage at Installation (km)</Label>
+                    <Input 
+                      id="mileage" 
+                      type="number" 
+                      placeholder="45000" 
+                      value={tireForm.mileage_installed}
+                      onChange={(e) => setTireForm({...tireForm, mileage_installed: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="cost" className="text-gray-300">Cost (Rp)</Label>
+                    <Input 
+                      id="cost" 
+                      type="number" 
+                      placeholder="850000" 
+                      value={tireForm.cost}
+                      onChange={(e) => setTireForm({...tireForm, cost: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3">
+                  <Button variant="outline" onClick={() => {
+                    setIsAddModalOpen(false);
+                    setEditingTire(null);
+                    resetForm();
+                  }}>Cancel</Button>
+                  <Button onClick={editingTire ? handleUpdateTire : handleAddTire}>
+                    {editingTire ? 'Update' : 'Add'} Tire
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div className="mb-6">

@@ -14,23 +14,73 @@ import { format } from 'date-fns';
 
 const Drivers = () => {
   const navigate = useNavigate();
-  const [drivers] = useState(mockDrivers);
+  const { data, addDriver, updateDriver, deleteDriver } = useData();
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedDriver, setSelectedDriver] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    license_number: '',
+    license_expiry: '',
+    phone: '',
+    email: '',
+    status: 'Active'
+  });
 
-  const filteredDrivers = drivers.filter(driver =>
+  const filteredDrivers = data.drivers.filter(driver =>
     driver.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     driver.license_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
     driver.phone.includes(searchTerm)
   );
 
   const getDriverVehicle = (driverId) => {
-    const assignment = mockDriverAssignments.find(a => a.driver_id === driverId && !a.end_date);
+    const assignment = data.driverAssignments.find(a => a.driver_id === driverId && !a.end_date);
     if (assignment) {
-      const vehicle = mockVehicles.find(v => v.vehicle_id === assignment.vehicle_id);
+      const vehicle = data.vehicles.find(v => v.vehicle_id === assignment.vehicle_id);
       return vehicle ? vehicle.plate : null;
     }
     return null;
+  };
+
+  const handleAddDriver = () => {
+    if (!formData.name || !formData.license_number || !formData.license_expiry || !formData.phone) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    addDriver(formData);
+    setFormData({ name: '', license_number: '', license_expiry: '', phone: '', email: '', status: 'Active' });
+    setIsAddModalOpen(false);
+  };
+
+  const handleEditDriver = () => {
+    if (!formData.name || !formData.license_number || !formData.license_expiry || !formData.phone) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    updateDriver(selectedDriver.driver_id, formData);
+    setFormData({ name: '', license_number: '', license_expiry: '', phone: '', email: '', status: 'Active' });
+    setIsEditModalOpen(false);
+    setSelectedDriver(null);
+  };
+
+  const handleDeleteDriver = (driver) => {
+    if (window.confirm(`Are you sure you want to delete driver ${driver.name}?`)) {
+      deleteDriver(driver.driver_id);
+    }
+  };
+
+  const openEditModal = (driver) => {
+    setSelectedDriver(driver);
+    setFormData({
+      name: driver.name,
+      license_number: driver.license_number,
+      license_expiry: driver.license_expiry,
+      phone: driver.phone,
+      email: driver.email || '',
+      status: driver.status
+    });
+    setIsEditModalOpen(true);
   };
 
   return (

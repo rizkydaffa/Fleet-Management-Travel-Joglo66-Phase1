@@ -174,12 +174,12 @@ const OdometerTracking = () => {
                   <div className="space-y-4 py-4">
                     <div>
                       <Label htmlFor="vehicle" className="text-gray-300">Vehicle *</Label>
-                      <Select>
+                      <Select value={tripForm.vehicle_id} onValueChange={(val) => setTripForm({...tripForm, vehicle_id: val})}>
                         <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
                           <SelectValue placeholder="Select vehicle" />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-800 border-gray-700 text-white">
-                          {mockVehicles.map(v => (
+                          {mockVehicles.filter(v => v.status === 'Active').map(v => (
                             <SelectItem key={v.vehicle_id} value={v.vehicle_id}>{v.plate} - {v.brand} {v.model}</SelectItem>
                           ))}
                         </SelectContent>
@@ -187,12 +187,12 @@ const OdometerTracking = () => {
                     </div>
                     <div>
                       <Label htmlFor="driver" className="text-gray-300">Driver *</Label>
-                      <Select>
+                      <Select value={tripForm.driver_id} onValueChange={(val) => setTripForm({...tripForm, driver_id: val})}>
                         <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
                           <SelectValue placeholder="Select driver" />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-800 border-gray-700 text-white">
-                          {mockDrivers.map(d => (
+                          {mockDrivers.filter(d => d.status === 'Active').map(d => (
                             <SelectItem key={d.driver_id} value={d.driver_id}>{d.name}</SelectItem>
                           ))}
                         </SelectContent>
@@ -200,16 +200,29 @@ const OdometerTracking = () => {
                     </div>
                     <div>
                       <Label htmlFor="startOdometer" className="text-gray-300">Starting Odometer (km) *</Label>
-                      <Input id="startOdometer" type="number" placeholder="45000" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                      <Input 
+                        id="startOdometer" 
+                        type="number" 
+                        placeholder="45000" 
+                        value={tripForm.start_odometer}
+                        onChange={(e) => setTripForm({...tripForm, start_odometer: e.target.value})}
+                        className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                      />
                     </div>
                     <div>
                       <Label htmlFor="purpose" className="text-gray-300">Trip Purpose</Label>
-                      <Input id="purpose" placeholder="e.g., Delivery, Pickup, etc." className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                      <Input 
+                        id="purpose" 
+                        placeholder="e.g., Delivery, Pickup, etc." 
+                        value={tripForm.purpose}
+                        onChange={(e) => setTripForm({...tripForm, purpose: e.target.value})}
+                        className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                      />
                     </div>
                   </div>
                   <div className="flex justify-end gap-3">
                     <Button variant="outline" onClick={() => setIsStartTripOpen(false)}>Cancel</Button>
-                    <Button onClick={() => setIsStartTripOpen(false)}>Start Trip</Button>
+                    <Button onClick={handleStartTrip}>Start Trip</Button>
                   </div>
                 </DialogContent>
               </Dialog>

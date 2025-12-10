@@ -140,8 +140,10 @@ async def process_session(session_request: SessionRequest, response: Response):
         return SessionResponse(user=User(**user_doc))
     
     except httpx.TimeoutException:
+        logger.error("Authentication service timeout")
         raise HTTPException(status_code=504, detail="Authentication service timeout")
     except Exception as e:
+        logger.error(f"Session processing error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @auth_router.get("/me", response_model=User)

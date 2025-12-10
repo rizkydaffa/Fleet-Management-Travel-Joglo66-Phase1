@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -9,8 +9,12 @@ const API = `${BACKEND_URL}/api`;
 const AuthCallback = () => {
   const navigate = useNavigate();
   const { setUser } = useAuth();
+  const hasProcessed = useRef(false);
 
   useEffect(() => {
+    if (hasProcessed.current) return;
+    hasProcessed.current = true;
+
     const processAuth = async () => {
       const hash = window.location.hash;
       const sessionId = hash.split('session_id=')[1]?.split('&')[0];

@@ -1,51 +1,34 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
-  mockVehicles, 
-  mockDrivers, 
-  mockMaintenanceRecords, 
-  mockFuelLogs, 
-  mockWorkOrders,
-  mockPartsInventory,
-  mockTires,
-  mockInspections,
-  mockAlerts,
-  mockDriverAssignments
-} from '../mock/mockData';
-import dataSync from '../utils/dataSync';
+  driversAPI, 
+  vehiclesAPI, 
+  partsAPI, 
+  tiresAPI, 
+  maintenanceAPI, 
+  fuelAPI, 
+  alertsAPI, 
+  workOrdersAPI 
+} from '../services/api';
 
 const DataContext = createContext(null);
 
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState({
-    vehicles: mockVehicles,
-    drivers: mockDrivers,
-    maintenanceRecords: mockMaintenanceRecords,
-    fuelLogs: mockFuelLogs,
-    workOrders: mockWorkOrders,
-    parts: mockPartsInventory,
-    tires: mockTires,
-    inspections: mockInspections,
-    alerts: mockAlerts,
-    driverAssignments: mockDriverAssignments,
-    odometerTrips: [
-      {
-        trip_id: 'trip_001',
-        vehicle_id: 'veh_001',
-        driver_id: 'drv_001',
-        start_odometer: 45000,
-        start_time: new Date(),
-        status: 'In Progress'
-      },
-      {
-        trip_id: 'trip_002',
-        vehicle_id: 'veh_002',
-        driver_id: 'drv_002',
-        start_odometer: 68000,
-        start_time: new Date(Date.now() - 2*60*60*1000),
-        status: 'In Progress'
-      }
-    ]
+    vehicles: [],
+    drivers: [],
+    maintenanceRecords: [],
+    fuelLogs: [],
+    workOrders: [],
+    parts: [],
+    tires: [],
+    inspections: [],
+    alerts: [],
+    driverAssignments: [],
+    odometerTrips: []
   });
+  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Initialize dataSync with initial data
   useEffect(() => {

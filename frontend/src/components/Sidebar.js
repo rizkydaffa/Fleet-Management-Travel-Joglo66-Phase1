@@ -26,6 +26,7 @@ const Sidebar = () => {
   const navigation = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, roles: ['Admin', 'Manager', 'Mechanic', 'Driver'] },
     { name: 'Vehicles', path: '/vehicles', icon: Truck, roles: ['Admin', 'Manager', 'Mechanic'] },
+    { name: 'Odometer', path: '/odometer', icon: BarChart3, roles: ['Admin', 'Manager', 'Driver'] },
     { name: 'Maintenance', path: '/maintenance', icon: Wrench, roles: ['Admin', 'Manager', 'Mechanic'] },
     { name: 'Drivers', path: '/drivers', icon: Users, roles: ['Admin', 'Manager'] },
     { name: 'Fuel Logs', path: '/fuel', icon: Fuel, roles: ['Admin', 'Manager', 'Driver'] },

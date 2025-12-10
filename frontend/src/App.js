@@ -46,11 +46,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthProvider>
-          <DataProvider>
-            <AppRouter />
-          </DataProvider>
-        </AuthProvider>
+        <DataProvider>
+          <AppRouter />
+        </DataProvider>
       </BrowserRouter>
     </div>
   );

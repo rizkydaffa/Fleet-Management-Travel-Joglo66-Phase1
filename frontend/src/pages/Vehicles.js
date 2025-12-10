@@ -198,37 +198,37 @@ const Vehicles = () => {
                 <CardContent className="pt-4">
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900">{vehicle.plate}</h3>
-                      <p className="text-sm text-gray-600">{vehicle.brand} {vehicle.model}</p>
+                      <h3 className="text-lg font-bold text-white">{vehicle.plate}</h3>
+                      <p className="text-sm text-gray-400">{vehicle.brand} {vehicle.model}</p>
                     </div>
                     <Badge className={getStatusColor(vehicle.status)}>
                       {getStatusIcon(vehicle.status)}
                       <span className="ml-1">{vehicle.status}</span>
                     </Badge>
                   </div>
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-gray-400">
                     <div className="flex justify-between">
                       <span>Type:</span>
-                      <span className="font-medium text-gray-900">{vehicle.type}</span>
+                      <span className="font-medium text-white">{vehicle.type}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Year:</span>
-                      <span className="font-medium text-gray-900">{vehicle.year}</span>
+                      <span className="font-medium text-white">{vehicle.year}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Mileage:</span>
-                      <span className="font-medium text-gray-900">{vehicle.mileage.toLocaleString()} km</span>
+                      <span className="font-medium text-white">{vehicle.mileage.toLocaleString()} km</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Fuel:</span>
-                      <span className="font-medium text-gray-900">{vehicle.fuel_type}</span>
+                      <span className="font-medium text-white">{vehicle.fuel_type}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Reg. Expiry:</span>
                       <span className={`font-medium ${
-                        new Date(vehicle.registration_expiry) < new Date() ? 'text-red-600' :
-                        new Date(vehicle.registration_expiry) < new Date(Date.now() + 30*24*60*60*1000) ? 'text-orange-600' :
-                        'text-gray-900'
+                        new Date(vehicle.registration_expiry) < new Date() ? 'text-red-400' :
+                        new Date(vehicle.registration_expiry) < new Date(Date.now() + 30*24*60*60*1000) ? 'text-orange-400' :
+                        'text-white'
                       }`}>
                         {format(new Date(vehicle.registration_expiry), 'MMM dd, yyyy')}
                       </span>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import {
   LayoutDashboard,
   Truck,
@@ -12,7 +11,6 @@ import {
   ClipboardCheck,
   Bell,
   BarChart3,
-  LogOut,
   Menu,
   X
 } from 'lucide-react';
@@ -20,26 +18,22 @@ import { useState } from 'react';
 
 const Sidebar = () => {
   const location = useLocation();
-  const { user, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Show all navigation items since no authentication is required
   const navigation = [
-    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, roles: ['Admin', 'Manager', 'Mechanic', 'Driver'] },
-    { name: 'Vehicles', path: '/vehicles', icon: Truck, roles: ['Admin', 'Manager', 'Mechanic'] },
-    { name: 'Odometer', path: '/odometer', icon: BarChart3, roles: ['Admin', 'Manager', 'Driver'] },
-    { name: 'Maintenance', path: '/maintenance', icon: Wrench, roles: ['Admin', 'Manager', 'Mechanic'] },
-    { name: 'Drivers', path: '/drivers', icon: Users, roles: ['Admin', 'Manager'] },
-    { name: 'Fuel Logs', path: '/fuel', icon: Fuel, roles: ['Admin', 'Manager', 'Driver'] },
-    { name: 'Parts', path: '/parts', icon: Package, roles: ['Admin', 'Manager', 'Mechanic'] },
-    { name: 'Tires', path: '/tires', icon: Circle, roles: ['Admin', 'Manager', 'Mechanic'] },
-    { name: 'Inspections', path: '/inspections', icon: ClipboardCheck, roles: ['Admin', 'Manager', 'Driver'] },
-    { name: 'Alerts', path: '/alerts', icon: Bell, roles: ['Admin', 'Manager'] },
-    { name: 'Reports', path: '/reports', icon: BarChart3, roles: ['Admin', 'Manager'] },
+    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+    { name: 'Vehicles', path: '/vehicles', icon: Truck },
+    { name: 'Odometer', path: '/odometer', icon: BarChart3 },
+    { name: 'Maintenance', path: '/maintenance', icon: Wrench },
+    { name: 'Drivers', path: '/drivers', icon: Users },
+    { name: 'Fuel Logs', path: '/fuel', icon: Fuel },
+    { name: 'Parts', path: '/parts', icon: Package },
+    { name: 'Tires', path: '/tires', icon: Circle },
+    { name: 'Inspections', path: '/inspections', icon: ClipboardCheck },
+    { name: 'Alerts', path: '/alerts', icon: Bell },
+    { name: 'Reports', path: '/reports', icon: BarChart3 },
   ];
-
-  const filteredNavigation = navigation.filter(item => 
-    item.roles.includes(user?.role)
-  );
 
   const NavContent = () => (
     <>

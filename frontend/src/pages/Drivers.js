@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import { mockDrivers, mockDriverAssignments, mockVehicles } from '../mock/mockData';
-import { Plus, Search, User, AlertCircle, CheckCircle } from 'lucide-react';
+import { useData } from '../context/DataContext';
+import { Plus, Search, User, AlertCircle, CheckCircle, Edit, Trash2 } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';

@@ -12,7 +12,7 @@ import { Input } from '../components/ui/input';
 import { format } from 'date-fns';
 
 const Tires = () => {
-  const { data, refreshData } = useData();
+  const { data, addTire, updateTire, deleteTire } = useData();
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingTire, setEditingTire] = useState(null);
@@ -40,48 +40,46 @@ const Tires = () => {
       return;
     }
 
-    const newTire = {
-      tire_id: `tire_${Date.now()}`,
+    const newTireData = {
       ...tireForm,
       mileage_installed: parseInt(tireForm.mileage_installed) || 0,
       cost: parseFloat(tireForm.cost) || 0,
-      status: 'Active',
-      created_at: new Date()
+      status: 'Active'
     };
 
-    data.tires.push(newTire);
-    refreshData();
+    addTire(newTireData);
     resetForm();
     setIsAddModalOpen(false);
   };
 
   const handleUpdateTire = () => {
-    const tireIndex = data.tires.findIndex(t => t.tire_id === editingTire.tire_id);
-    if (tireIndex !== -1) {
-      data.tires[tireIndex] = {
-        ...data.tires[tireIndex],
-        ...tireForm,
-        mileage_installed: parseInt(tireForm.mileage_installed) || 0,
-        cost: parseFloat(tireForm.cost) || 0
-      };
-      refreshData();
-      resetForm();
-      setEditingTire(null);
+    if (!tireForm.vehicle_id || !tireForm.position || !tireForm.brand || !tireForm.size) {
+      alert('Please fill all required fields');
+      return;
     }
+
+    const updatedTireData = {
+      ...tireForm,
+      mileage_installed: parseInt(tireForm.mileage_installed) || 0,
+      cost: parseFloat(tireForm.cost) || 0
+    };
+
+    updateTire(editingTire.tire_id, updatedTireData);
+    resetForm();
+    setEditingTire(null);
   };
 
   const handleToggleStatus = (tireId) => {
     const tire = data.tires.find(t => t.tire_id === tireId);
     if (tire) {
-      tire.status = tire.status === 'Active' ? 'Replaced' : 'Active';
-      refreshData();
+      const newStatus = tire.status === 'Active' ? 'Replaced' : 'Active';
+      updateTire(tireId, { status: newStatus });
     }
   };
 
   const handleDelete = (tireId) => {
     if (window.confirm('Are you sure you want to delete this tire record?')) {
-      data.tires = data.tires.filter(t => t.tire_id !== tireId);
-      refreshData();
+      deleteTire(tireId);
     }
   };
 

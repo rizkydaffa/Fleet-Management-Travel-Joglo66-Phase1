@@ -85,65 +85,7 @@ export const DataProvider = ({ children }) => {
     fetchAllData();
   };
 
-  // Vehicle operations
-  const updateVehicleMileage = (vehicleId, newMileage) => {
-    const result = dataSync.updateVehicleMileage(vehicleId, newMileage);
-    refreshData();
-    return result;
-  };
-
-  // Trip operations
-  const startTrip = (tripData) => {
-    const result = dataSync.startTrip(tripData);
-    refreshData();
-    return result;
-  };
-
-  const endTrip = (tripId, endOdometer) => {
-    const result = dataSync.endTrip(tripId, endOdometer);
-    refreshData();
-    return result;
-  };
-
-  // Alert operations
-  const markAlertAsDone = (alertId) => {
-    const result = dataSync.markAlertAsDone(alertId);
-    refreshData();
-    return result;
-  };
-
-  const createAlert = (alertData) => {
-    const result = dataSync.createAlert(alertData);
-    refreshData();
-    return result;
-  };
-
-  // Maintenance operations
-  const addMaintenanceRecord = (recordData) => {
-    const result = dataSync.addMaintenanceRecord(recordData);
-    refreshData();
-    return result;
-  };
-
-  // Fuel operations
-  const addFuelLog = (fuelData) => {
-    const result = dataSync.addFuelLog(fuelData);
-    refreshData();
-    return result;
-  };
-
-  // Work order operations
-  const addWorkOrder = (orderData) => {
-    const result = dataSync.addWorkOrder(orderData);
-    refreshData();
-    return result;
-  };
-
-  const updateWorkOrderStatus = (orderId, status, completedDate) => {
-    const result = dataSync.updateWorkOrderStatus(orderId, status, completedDate);
-    refreshData();
-    return result;
-  };
+  // Placeholder - old functions removed, using new API-based implementations below
 
   // Driver operations
   const updateDriver = async (driverId, updatedData) => {

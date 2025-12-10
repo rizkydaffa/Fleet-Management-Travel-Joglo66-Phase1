@@ -17,6 +17,7 @@ import Inspections from "./pages/Inspections";
 import Alerts from "./pages/Alerts";
 import Reports from "./pages/Reports";
 import OdometerTracking from "./pages/OdometerTracking";
+import DriverDetails from "./pages/DriverDetails";
 
 function AppRouter() {
   const location = useLocation();

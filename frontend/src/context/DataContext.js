@@ -30,13 +30,59 @@ export const DataProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Initialize dataSync with initial data
+  // Fetch all data from backend
+  const fetchAllData = async () => {
+    try {
+      setLoading(true);
+      const [
+        driversRes,
+        vehiclesRes,
+        partsRes,
+        tiresRes,
+        maintenanceRes,
+        fuelRes,
+        alertsRes,
+        workOrdersRes
+      ] = await Promise.all([
+        driversAPI.getAll().catch(() => ({ data: [] })),
+        vehiclesAPI.getAll().catch(() => ({ data: [] })),
+        partsAPI.getAll().catch(() => ({ data: [] })),
+        tiresAPI.getAll().catch(() => ({ data: [] })),
+        maintenanceAPI.getAll().catch(() => ({ data: [] })),
+        fuelAPI.getAll().catch(() => ({ data: [] })),
+        alertsAPI.getAll().catch(() => ({ data: [] })),
+        workOrdersAPI.getAll().catch(() => ({ data: [] }))
+      ]);
+
+      setData({
+        drivers: driversRes.data || [],
+        vehicles: vehiclesRes.data || [],
+        parts: partsRes.data || [],
+        tires: tiresRes.data || [],
+        maintenanceRecords: maintenanceRes.data || [],
+        fuelLogs: fuelRes.data || [],
+        alerts: alertsRes.data || [],
+        workOrders: workOrdersRes.data || [],
+        inspections: [],
+        driverAssignments: [],
+        odometerTrips: []
+      });
+      
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching data:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    dataSync.initializeData(data);
+    fetchAllData();
   }, []);
 
   const refreshData = () => {
-    setData({ ...dataSync.getAllData() });
+    fetchAllData();
   };
 
   // Vehicle operations

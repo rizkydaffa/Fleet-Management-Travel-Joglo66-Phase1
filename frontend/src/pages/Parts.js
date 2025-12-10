@@ -31,6 +31,77 @@ const Parts = () => {
     part.part_number.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleAddPart = () => {
+    if (!partForm.name || !partForm.part_number || !partForm.quantity || !partForm.min_stock) {
+      alert('Please fill all required fields');
+      return;
+    }
+
+    const newPart = {
+      part_id: `prt_${Date.now()}`,
+      ...partForm,
+      quantity: parseInt(partForm.quantity),
+      min_stock: parseInt(partForm.min_stock),
+      cost: parseFloat(partForm.cost) || 0,
+      created_at: new Date(),
+      updated_at: new Date()
+    };
+
+    data.parts.push(newPart);
+    refreshData();
+    resetForm();
+    setIsAddModalOpen(false);
+  };
+
+  const handleUpdatePart = () => {
+    const partIndex = data.parts.findIndex(p => p.part_id === editingPart.part_id);
+    if (partIndex !== -1) {
+      data.parts[partIndex] = {
+        ...data.parts[partIndex],
+        ...partForm,
+        quantity: parseInt(partForm.quantity),
+        min_stock: parseInt(partForm.min_stock),
+        cost: parseFloat(partForm.cost) || 0,
+        updated_at: new Date()
+      };
+      refreshData();
+      resetForm();
+      setEditingPart(null);
+    }
+  };
+
+  const handleDelete = (partId) => {
+    if (window.confirm('Are you sure you want to delete this part?')) {
+      data.parts = data.parts.filter(p => p.part_id !== partId);
+      refreshData();
+    }
+  };
+
+  const openEditModal = (part) => {
+    setEditingPart(part);
+    setPartForm({
+      name: part.name,
+      part_number: part.part_number,
+      quantity: part.quantity.toString(),
+      min_stock: part.min_stock.toString(),
+      cost: part.cost.toString(),
+      supplier: part.supplier || '',
+      location: part.location || ''
+    });
+  };
+
+  const resetForm = () => {
+    setPartForm({
+      name: '',
+      part_number: '',
+      quantity: '',
+      min_stock: '',
+      cost: '',
+      supplier: '',
+      location: ''
+    });
+  };
+
   return (
     <div className="flex min-h-screen bg-black">
       <Sidebar />

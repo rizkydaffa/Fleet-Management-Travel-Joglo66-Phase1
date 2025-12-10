@@ -111,7 +111,7 @@ async def process_session(session_request: SessionRequest, response: Response):
         }
         await db.user_sessions.insert_one(session_doc)
         
-        # Set cookie
+        # Set cookie with proper settings for cross-origin
         response.set_cookie(
             key="session_token",
             value=session_token,
@@ -119,7 +119,8 @@ async def process_session(session_request: SessionRequest, response: Response):
             secure=True,
             samesite="none",
             path="/",
-            max_age=7*24*60*60
+            max_age=7*24*60*60,
+            domain=None  # Let browser handle domain automatically
         )
         
         # Get user data

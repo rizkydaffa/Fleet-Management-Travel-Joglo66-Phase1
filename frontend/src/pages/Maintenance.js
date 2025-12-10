@@ -297,15 +297,15 @@ const Maintenance = () => {
             </TabsContent>
 
             <TabsContent value="schedule">
-              <Card>
+              <Card className="bg-gray-900 border-gray-800">
                 <CardHeader>
-                  <CardTitle>Upcoming Maintenance Schedule</CardTitle>
+                  <CardTitle className="text-white">Upcoming Maintenance Schedule</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-12 text-gray-500">
-                    <Calendar className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-                    <p>Maintenance schedule based on mileage and time intervals</p>
-                    <p className="text-sm mt-2">Coming soon with predictive maintenance alerts</p>
+                  <div className="text-center py-12">
+                    <Calendar className="w-16 h-16 mx-auto mb-4 text-gray-600" />
+                    <p className="text-gray-400">Maintenance schedule based on mileage and time intervals</p>
+                    <p className="text-sm mt-2 text-gray-500">Check Odometer Tracking page for automatic maintenance alerts</p>
                   </div>
                 </CardContent>
               </Card>

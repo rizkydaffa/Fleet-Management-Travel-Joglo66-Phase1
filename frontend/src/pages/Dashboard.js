@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
-import { mockDashboardStats, mockAlerts, mockVehicles, mockWorkOrders } from '../mock/mockData';
+import { useData } from '../context/DataContext';
 import {
   Truck,
   Wrench,

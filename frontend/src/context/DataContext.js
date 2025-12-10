@@ -306,6 +306,13 @@ export const DataProvider = ({ children }) => {
     error,
     refreshData,
     getDashboardStats,
+    // Odometer tracking
+    startTrip,
+    endTrip,
+    getActiveTrips,
+    getCompletedTrips,
+    // Alerts
+    markAlertAsDone,
     // Driver CRUD
     updateDriver,
     deleteDriver,

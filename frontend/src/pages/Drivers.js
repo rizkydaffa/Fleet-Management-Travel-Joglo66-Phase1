@@ -73,6 +73,14 @@ const Drivers = () => {
                     <Label htmlFor="email" className="text-gray-300">Email</Label>
                     <Input id="email" type="email" placeholder="driver@joglo66.com" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="driverPhoto" className="text-gray-300">Driver Photo</Label>
+                    <Input id="driverPhoto" type="file" accept="image/*" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="ktpPhoto" className="text-gray-300">KTP Photo</Label>
+                    <Input id="ktpPhoto" type="file" accept="image/*" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                  </div>
                 </div>
                 <div className="flex justify-end gap-3">
                   <Button variant="outline" onClick={() => setIsAddModalOpen(false)}>Cancel</Button>

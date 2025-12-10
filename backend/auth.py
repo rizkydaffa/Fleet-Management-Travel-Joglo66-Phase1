@@ -3,18 +3,12 @@ from datetime import datetime, timezone, timedelta
 import uuid
 import httpx
 import os
-from motor.motor_asyncio import AsyncIOMotorClient
 from models import User, UserSession, SessionRequest, SessionResponse
 
 auth_router = APIRouter(prefix="/auth", tags=["Authentication"])
 
-# Get MongoDB connection from environment (will be set by server.py)
-def get_db():
-    mongo_url = os.environ.get('MONGO_URL')
-    client = AsyncIOMotorClient(mongo_url)
-    return client[os.environ['DB_NAME']]
-
-db = None  # Will be set when module is imported
+# Database will be injected from server.py
+db = None
 
 # Helper function to get user from session
 async def get_current_user(request: Request) -> User:

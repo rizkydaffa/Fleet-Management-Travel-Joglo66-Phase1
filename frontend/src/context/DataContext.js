@@ -180,22 +180,37 @@ export const DataProvider = ({ children }) => {
   };
 
   // Part operations
-  const updatePart = (partId, updatedData) => {
-    const result = dataSync.updatePart(partId, updatedData);
-    refreshData();
-    return result;
+  const updatePart = async (partId, updatedData) => {
+    try {
+      const result = await partsAPI.update(partId, updatedData);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error updating part:', err);
+      throw err;
+    }
   };
 
-  const deletePart = (partId) => {
-    const result = dataSync.deletePart(partId);
-    refreshData();
-    return result;
+  const deletePart = async (partId) => {
+    try {
+      const result = await partsAPI.delete(partId);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error deleting part:', err);
+      throw err;
+    }
   };
 
-  const addPart = (partData) => {
-    const result = dataSync.addPart(partData);
-    refreshData();
-    return result;
+  const addPart = async (partData) => {
+    try {
+      const result = await partsAPI.create(partData);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error adding part:', err);
+      throw err;
+    }
   };
 
   // Tire operations

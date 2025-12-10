@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -8,13 +8,18 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     location.state?.user ? true : null
   );
+  const isChecking = useRef(false);
 
   useEffect(() => {
+    if (isChecking.current) return;
+    isChecking.current = true;
+
     let isMounted = true;
 
     const verifyAuth = async () => {
       if (location.state?.user) {
         setIsAuthenticated(true);
+        isChecking.current = false;
         return;
       }
 
@@ -29,6 +34,7 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
         const authenticated = await checkAuth();
         setIsAuthenticated(authenticated);
       }
+      isChecking.current = false;
     };
 
     verifyAuth();
@@ -36,7 +42,7 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     return () => {
       isMounted = false;
     };
-  }, [location.state, user]);
+  }, [location.pathname, checkAuth]);
 
   if (loading || isAuthenticated === null) {
     return (

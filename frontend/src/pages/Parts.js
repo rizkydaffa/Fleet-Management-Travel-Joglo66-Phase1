@@ -31,7 +31,7 @@ const Parts = () => {
     part.part_number.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleAddPart = () => {
+  const handleAddPart = async () => {
     if (!partForm.name || !partForm.part_number || !partForm.quantity || !partForm.min_stock) {
       alert('Please fill all required fields');
       return;
@@ -44,12 +44,16 @@ const Parts = () => {
       cost: parseFloat(partForm.cost) || 0
     };
 
-    addPart(newPartData);
-    resetForm();
-    setIsAddModalOpen(false);
+    try {
+      await addPart(newPartData);
+      resetForm();
+      setIsAddModalOpen(false);
+    } catch (error) {
+      alert('Error adding part: ' + (error.response?.data?.detail || error.message));
+    }
   };
 
-  const handleUpdatePart = () => {
+  const handleUpdatePart = async () => {
     if (!partForm.name || !partForm.part_number || !partForm.quantity || !partForm.min_stock) {
       alert('Please fill all required fields');
       return;
@@ -62,14 +66,22 @@ const Parts = () => {
       cost: parseFloat(partForm.cost) || 0
     };
 
-    updatePart(editingPart.part_id, updatedPartData);
-    resetForm();
-    setEditingPart(null);
+    try {
+      await updatePart(editingPart.part_id, updatedPartData);
+      resetForm();
+      setEditingPart(null);
+    } catch (error) {
+      alert('Error updating part: ' + (error.response?.data?.detail || error.message));
+    }
   };
 
-  const handleDelete = (partId) => {
+  const handleDelete = async (partId) => {
     if (window.confirm('Are you sure you want to delete this part?')) {
-      deletePart(partId);
+      try {
+        await deletePart(partId);
+      } catch (error) {
+        alert('Error deleting part: ' + (error.response?.data?.detail || error.message));
+      }
     }
   };
 

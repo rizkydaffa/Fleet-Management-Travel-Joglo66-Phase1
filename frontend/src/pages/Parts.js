@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import { mockPartsInventory } from '../mock/mockData';
-import { Plus, Search, Package, AlertTriangle } from 'lucide-react';
+import { useData } from '../context/DataContext';
+import { Plus, Search, Package, AlertTriangle, Edit, Trash2 } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';

@@ -46,14 +46,14 @@ const Maintenance = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-black">
       <Sidebar />
       <div className="flex-1 lg:ml-64">
         <div className="p-6 lg:p-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Maintenance</h1>
-              <p className="text-gray-600 mt-1">Manage vehicle maintenance and work orders</p>
+              <h1 className="text-3xl font-bold text-white">Maintenance</h1>
+              <p className="text-gray-400 mt-1">Manage vehicle maintenance and work orders</p>
             </div>
           </div>
 

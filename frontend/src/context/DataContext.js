@@ -249,27 +249,9 @@ export const DataProvider = ({ children }) => {
 
   const value = {
     data,
+    loading,
+    error,
     refreshData,
-    updateVehicleMileage,
-    startTrip,
-    endTrip,
-    markAlertAsDone,
-    createAlert,
-    addMaintenanceRecord,
-    addFuelLog,
-    addWorkOrder,
-    updateWorkOrderStatus,
-    getDashboardStats: dataSync.getDashboardStats,
-    getActiveTrips: dataSync.getActiveTrips,
-    getCompletedTrips: dataSync.getCompletedTrips,
-    getActiveAlerts: dataSync.getActiveAlerts,
-    getMaintenanceRecords: dataSync.getMaintenanceRecords,
-    getFuelLogs: dataSync.getFuelLogs,
-    getVehicle: dataSync.getVehicle,
-    checkMaintenanceAlerts: (vehicleId) => {
-      dataSync.checkMaintenanceAlerts(vehicleId);
-      refreshData();
-    },
     // Driver CRUD
     updateDriver,
     deleteDriver,

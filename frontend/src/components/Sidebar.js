@@ -43,7 +43,7 @@ const Sidebar = () => {
       </div>
 
       <nav className="flex-1 px-4 py-6 space-y-1">
-        {filteredNavigation.map((item) => {
+        {navigation.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
           return (
@@ -65,24 +65,15 @@ const Sidebar = () => {
       </nav>
 
       <div className="px-4 py-4 border-t border-gray-800">
-        <div className="flex items-center px-4 py-3 bg-gray-800 rounded-lg mb-3">
-          <img
-            src={user?.picture || 'https://via.placeholder.com/40'}
-            alt={user?.name}
-            className="w-10 h-10 rounded-full mr-3"
-          />
+        <div className="flex items-center px-4 py-3 bg-gray-800 rounded-lg">
+          <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center mr-3">
+            <span className="text-white font-bold">JT</span>
+          </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-white truncate">{user?.name}</p>
-            <p className="text-xs text-gray-400">{user?.role}</p>
+            <p className="text-sm font-medium text-white truncate">Joglo66 Trans</p>
+            <p className="text-xs text-gray-400">Fleet Manager</p>
           </div>
         </div>
-        <button
-          onClick={logout}
-          className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-400 hover:bg-gray-800 rounded-lg transition-colors"
-        >
-          <LogOut className="w-5 h-5 mr-3" />
-          Logout
-        </button>
       </div>
     </>
   );

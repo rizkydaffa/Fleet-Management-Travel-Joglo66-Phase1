@@ -285,7 +285,7 @@ const OdometerTracking = () => {
                           </div>
                         </div>
                         <Button 
-                          onClick={() => setIsEndTripOpen(true)}
+                          onClick={() => openEndTripDialog(trip)}
                           className="bg-blue-600 hover:bg-blue-700"
                         >
                           End Trip

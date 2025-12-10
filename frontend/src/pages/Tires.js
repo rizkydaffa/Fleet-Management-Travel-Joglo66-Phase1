@@ -12,12 +12,102 @@ import { Input } from '../components/ui/input';
 import { format } from 'date-fns';
 
 const Tires = () => {
-  const [tires] = useState(mockTires);
+  const { data, refreshData } = useData();
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingTire, setEditingTire] = useState(null);
+  const [tireForm, setTireForm] = useState({
+    vehicle_id: '',
+    position: '',
+    brand: '',
+    size: '',
+    installation_date: '',
+    mileage_installed: '',
+    cost: ''
+  });
+
+  const tires = data.tires;
+  const vehicles = data.vehicles;
 
   const getVehiclePlate = (vehicleId) => {
-    const vehicle = mockVehicles.find(v => v.vehicle_id === vehicleId);
+    const vehicle = vehicles.find(v => v.vehicle_id === vehicleId);
     return vehicle ? vehicle.plate : 'Unknown';
+  };
+
+  const handleAddTire = () => {
+    if (!tireForm.vehicle_id || !tireForm.position || !tireForm.brand || !tireForm.size) {
+      alert('Please fill all required fields');
+      return;
+    }
+
+    const newTire = {
+      tire_id: `tire_${Date.now()}`,
+      ...tireForm,
+      mileage_installed: parseInt(tireForm.mileage_installed) || 0,
+      cost: parseFloat(tireForm.cost) || 0,
+      status: 'Active',
+      created_at: new Date()
+    };
+
+    data.tires.push(newTire);
+    refreshData();
+    resetForm();
+    setIsAddModalOpen(false);
+  };
+
+  const handleUpdateTire = () => {
+    const tireIndex = data.tires.findIndex(t => t.tire_id === editingTire.tire_id);
+    if (tireIndex !== -1) {
+      data.tires[tireIndex] = {
+        ...data.tires[tireIndex],
+        ...tireForm,
+        mileage_installed: parseInt(tireForm.mileage_installed) || 0,
+        cost: parseFloat(tireForm.cost) || 0
+      };
+      refreshData();
+      resetForm();
+      setEditingTire(null);
+    }
+  };
+
+  const handleToggleStatus = (tireId) => {
+    const tire = data.tires.find(t => t.tire_id === tireId);
+    if (tire) {
+      tire.status = tire.status === 'Active' ? 'Replaced' : 'Active';
+      refreshData();
+    }
+  };
+
+  const handleDelete = (tireId) => {
+    if (window.confirm('Are you sure you want to delete this tire record?')) {
+      data.tires = data.tires.filter(t => t.tire_id !== tireId);
+      refreshData();
+    }
+  };
+
+  const openEditModal = (tire) => {
+    setEditingTire(tire);
+    setTireForm({
+      vehicle_id: tire.vehicle_id,
+      position: tire.position,
+      brand: tire.brand,
+      size: tire.size,
+      installation_date: tire.installation_date,
+      mileage_installed: tire.mileage_installed.toString(),
+      cost: tire.cost.toString()
+    });
+  };
+
+  const resetForm = () => {
+    setTireForm({
+      vehicle_id: '',
+      position: '',
+      brand: '',
+      size: '',
+      installation_date: '',
+      mileage_installed: '',
+      cost: ''
+    });
   };
 
   return (

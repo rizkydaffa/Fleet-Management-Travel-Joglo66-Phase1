@@ -288,9 +288,35 @@ const Tires = () => {
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-4 border-t border-gray-800">
-                    <Button variant="outline" size="sm" className="w-full border-gray-700 text-gray-300 hover:bg-gray-800">
-                      View Details
+                  <div className="mt-4 pt-4 border-t border-gray-800 space-y-2">
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1 border-gray-700 text-gray-300 hover:bg-gray-800"
+                        onClick={() => openEditModal(tire)}
+                      >
+                        <Edit className="w-3 h-3 mr-1" />
+                        Edit
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className={`flex-1 border-gray-700 ${tire.status === 'Active' ? 'text-orange-400 hover:bg-orange-900/20' : 'text-green-400 hover:bg-green-900/20'}`}
+                        onClick={() => handleToggleStatus(tire.tire_id)}
+                      >
+                        <Power className="w-3 h-3 mr-1" />
+                        {tire.status === 'Active' ? 'Deactivate' : 'Activate'}
+                      </Button>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full border-red-700 text-red-400 hover:bg-red-900/20"
+                      onClick={() => handleDelete(tire.tire_id)}
+                    >
+                      <Trash2 className="w-3 h-3 mr-1" />
+                      Delete
                     </Button>
                   </div>
                 </CardContent>

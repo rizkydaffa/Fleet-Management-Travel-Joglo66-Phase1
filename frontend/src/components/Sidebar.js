@@ -42,9 +42,9 @@ const Sidebar = () => {
 
   const NavContent = () => (
     <>
-      <div className="px-6 py-6 border-b border-gray-200">
-        <h1 className="text-xl font-bold text-gray-800">Joglo66 Trans</h1>
-        <p className="text-xs text-gray-500 mt-1">Fleet Management</p>
+      <div className="px-6 py-6 border-b border-gray-800">
+        <h1 className="text-xl font-bold text-white">Joglo66 Trans</h1>
+        <p className="text-xs text-gray-400 mt-1">Fleet Management</p>
       </div>
 
       <nav className="flex-1 px-4 py-6 space-y-1">
@@ -58,32 +58,32 @@ const Sidebar = () => {
               onClick={() => setIsMobileMenuOpen(false)}
               className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
                 isActive
-                  ? 'bg-blue-50 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-300 hover:bg-gray-800'
               }`}
             >
-              <Icon className={`w-5 h-5 mr-3 ${isActive ? 'text-blue-700' : 'text-gray-500'}`} />
+              <Icon className={`w-5 h-5 mr-3 ${isActive ? 'text-white' : 'text-gray-400'}`} />
               {item.name}
             </Link>
           );
         })}
       </nav>
 
-      <div className="px-4 py-4 border-t border-gray-200">
-        <div className="flex items-center px-4 py-3 bg-gray-50 rounded-lg mb-3">
+      <div className="px-4 py-4 border-t border-gray-800">
+        <div className="flex items-center px-4 py-3 bg-gray-800 rounded-lg mb-3">
           <img
             src={user?.picture || 'https://via.placeholder.com/40'}
             alt={user?.name}
             className="w-10 h-10 rounded-full mr-3"
           />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">{user?.name}</p>
-            <p className="text-xs text-gray-500">{user?.role}</p>
+            <p className="text-sm font-medium text-white truncate">{user?.name}</p>
+            <p className="text-xs text-gray-400">{user?.role}</p>
           </div>
         </div>
         <button
           onClick={logout}
-          className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+          className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-400 hover:bg-gray-800 rounded-lg transition-colors"
         >
           <LogOut className="w-5 h-5 mr-3" />
           Logout

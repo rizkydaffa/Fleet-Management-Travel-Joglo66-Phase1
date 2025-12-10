@@ -217,7 +217,7 @@ const Dashboard = () => {
             {/* Work Orders */}
             <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
-                <CardTitle className="text-white">Active Work Orders</CardTitle>
+                <CardTitle className="text-white">High Priority Work Orders</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -225,9 +225,24 @@ const Dashboard = () => {
                     const vehicle = mockVehicles.find(v => v.vehicle_id === order.vehicle_id);
                     return (
                       <div key={order.order_id} className="flex items-start gap-3 p-3 bg-gray-800 rounded-lg border border-gray-700">
-                        <Wrench className="w-5 h-5 mt-0.5 text-blue-400" />
+                        {vehicle?.photos && vehicle.photos.length > 0 && (
+                          <img 
+                            src={vehicle.photos[0]} 
+                            alt={vehicle.plate}
+                            className="w-16 h-16 rounded object-cover"
+                          />
+                        )}
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-white">{vehicle?.plate}</p>
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm font-medium text-white">{vehicle?.plate}</p>
+                            <Badge className={
+                              order.priority === 'Critical' ? 'bg-red-500/20 text-red-400' :
+                              order.priority === 'High' ? 'bg-orange-500/20 text-orange-400' :
+                              'bg-yellow-500/20 text-yellow-400'
+                            }>
+                              {order.priority}
+                            </Badge>
+                          </div>
                           <p className="text-xs text-gray-400 mt-1">{order.description}</p>
                           <p className="text-xs text-gray-500 mt-1">Rp {(order.total_cost / 1000000).toFixed(1)}M</p>
                         </div>

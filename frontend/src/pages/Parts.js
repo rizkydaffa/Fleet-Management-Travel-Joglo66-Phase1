@@ -284,10 +284,30 @@ const Parts = () => {
                       </div>
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-gray-800">
+                    <div className="mt-4 pt-4 border-t border-gray-800 space-y-2">
                       <Badge className={isLowStock ? 'bg-red-500/20 text-red-400' : 'bg-green-500/20 text-green-400'}>
                         {isLowStock ? 'Reorder Needed' : 'In Stock'}
                       </Badge>
+                      <div className="flex gap-2 mt-3">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex-1 border-gray-700 text-gray-300 hover:bg-gray-800"
+                          onClick={() => openEditModal(part)}
+                        >
+                          <Edit className="w-3 h-3 mr-1" />
+                          Edit
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex-1 border-red-700 text-red-400 hover:bg-red-900/20"
+                          onClick={() => handleDelete(part.part_id)}
+                        >
+                          <Trash2 className="w-3 h-3 mr-1" />
+                          Delete
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

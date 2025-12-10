@@ -136,6 +136,7 @@ async def process_session(session_request: SessionRequest, response: Response):
             {"_id": 0}
         )
         
+        logger.info(f"Session created successfully for user: {user_doc['email']}")
         return SessionResponse(user=User(**user_doc))
     
     except httpx.TimeoutException:

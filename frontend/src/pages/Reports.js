@@ -91,7 +91,6 @@ const Reports = () => {
     link.click();
   };
 
-const Reports = () => {
   return (
     <div className="flex min-h-screen bg-black">
       <Sidebar />

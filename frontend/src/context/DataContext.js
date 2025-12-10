@@ -270,6 +270,36 @@ export const DataProvider = ({ children }) => {
     };
   };
 
+  // Odometer tracking helpers (placeholder - to be implemented with backend)
+  const startTrip = async (tripData) => {
+    console.log('startTrip to be implemented with backend');
+    return null;
+  };
+
+  const endTrip = async (tripId, endOdometer) => {
+    console.log('endTrip to be implemented with backend');
+    return null;
+  };
+
+  const getActiveTrips = () => {
+    return data.odometerTrips?.filter(t => t.status === 'In Progress') || [];
+  };
+
+  const getCompletedTrips = () => {
+    return data.odometerTrips?.filter(t => t.status === 'Completed') || [];
+  };
+
+  // Alert helpers
+  const markAlertAsDone = async (alertId) => {
+    try {
+      await alertsAPI.markAsDone(alertId);
+      await refreshData();
+    } catch (err) {
+      console.error('Error marking alert as done:', err);
+      throw err;
+    }
+  };
+
   const value = {
     data,
     loading,

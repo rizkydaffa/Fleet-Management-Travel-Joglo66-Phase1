@@ -69,24 +69,24 @@ const Vehicles = () => {
                 </DialogHeader>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
                   <div>
-                    <Label htmlFor="plate">License Plate *</Label>
-                    <Input id="plate" placeholder="B 1234 ABC" className="mt-1" />
+                    <Label htmlFor="plate" className="text-gray-300">License Plate *</Label>
+                    <Input id="plate" placeholder="B 1234 ABC" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
-                    <Label htmlFor="brand">Brand *</Label>
-                    <Input id="brand" placeholder="Toyota" className="mt-1" />
+                    <Label htmlFor="brand" className="text-gray-300">Brand *</Label>
+                    <Input id="brand" placeholder="Toyota" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
-                    <Label htmlFor="model">Model *</Label>
-                    <Input id="model" placeholder="Hiace" className="mt-1" />
+                    <Label htmlFor="model" className="text-gray-300">Model *</Label>
+                    <Input id="model" placeholder="Hiace" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
-                    <Label htmlFor="type">Type *</Label>
+                    <Label htmlFor="type" className="text-gray-300">Type *</Label>
                     <Select>
-                      <SelectTrigger className="mt-1">
+                      <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
                         <SelectValue placeholder="Select type" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-800 border-gray-700 text-white">
                         <SelectItem value="Car">Car</SelectItem>
                         <SelectItem value="Van">Van</SelectItem>
                         <SelectItem value="Bus">Bus</SelectItem>
@@ -95,28 +95,28 @@ const Vehicles = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="year">Year *</Label>
-                    <Input id="year" type="number" placeholder="2023" className="mt-1" />
+                    <Label htmlFor="year" className="text-gray-300">Year *</Label>
+                    <Input id="year" type="number" placeholder="2023" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
-                    <Label htmlFor="vin">VIN</Label>
-                    <Input id="vin" placeholder="Vehicle Identification Number" className="mt-1" />
+                    <Label htmlFor="vin" className="text-gray-300">VIN</Label>
+                    <Input id="vin" placeholder="Vehicle Identification Number" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
-                    <Label htmlFor="color">Color</Label>
-                    <Input id="color" placeholder="White" className="mt-1" />
+                    <Label htmlFor="color" className="text-gray-300">Color</Label>
+                    <Input id="color" placeholder="White" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
-                    <Label htmlFor="mileage">Mileage (km)</Label>
-                    <Input id="mileage" type="number" placeholder="0" className="mt-1" />
+                    <Label htmlFor="mileage" className="text-gray-300">Mileage (km)</Label>
+                    <Input id="mileage" type="number" placeholder="0" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
-                    <Label htmlFor="fuelType">Fuel Type *</Label>
+                    <Label htmlFor="fuelType" className="text-gray-300">Fuel Type *</Label>
                     <Select>
-                      <SelectTrigger className="mt-1">
+                      <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
                         <SelectValue placeholder="Select fuel type" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-800 border-gray-700 text-white">
                         <SelectItem value="Petrol">Petrol</SelectItem>
                         <SelectItem value="Diesel">Diesel</SelectItem>
                         <SelectItem value="Electric">Electric</SelectItem>
@@ -125,12 +125,12 @@ const Vehicles = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="ownership">Ownership Status *</Label>
+                    <Label htmlFor="ownership" className="text-gray-300">Ownership Status *</Label>
                     <Select>
-                      <SelectTrigger className="mt-1">
+                      <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
                         <SelectValue placeholder="Select ownership" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-800 border-gray-700 text-white">
                         <SelectItem value="Owned">Owned</SelectItem>
                         <SelectItem value="Leased">Leased</SelectItem>
                         <SelectItem value="Rented">Rented</SelectItem>
@@ -138,12 +138,20 @@ const Vehicles = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="regExpiry">Registration Expiry</Label>
-                    <Input id="regExpiry" type="date" className="mt-1" />
+                    <Label htmlFor="regExpiry" className="text-gray-300">Registration Expiry</Label>
+                    <Input id="regExpiry" type="date" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
-                    <Label htmlFor="totalValue">Total Value (Rp)</Label>
-                    <Input id="totalValue" type="number" placeholder="0" className="mt-1" />
+                    <Label htmlFor="totalValue" className="text-gray-300">Total Value (Rp)</Label>
+                    <Input id="totalValue" type="number" placeholder="0" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="vehiclePhoto" className="text-gray-300">Vehicle Photo</Label>
+                    <Input id="vehiclePhoto" type="file" accept="image/*" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="stnkPhoto" className="text-gray-300">STNK Photo</Label>
+                    <Input id="stnkPhoto" type="file" accept="image/*" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                 </div>
                 <div className="flex justify-end gap-3">

@@ -116,6 +116,63 @@ export const DataProvider = ({ children }) => {
     return result;
   };
 
+  // Driver operations
+  const updateDriver = (driverId, updatedData) => {
+    const result = dataSync.updateDriver(driverId, updatedData);
+    refreshData();
+    return result;
+  };
+
+  const deleteDriver = (driverId) => {
+    const result = dataSync.deleteDriver(driverId);
+    refreshData();
+    return result;
+  };
+
+  const addDriver = (driverData) => {
+    const result = dataSync.addDriver(driverData);
+    refreshData();
+    return result;
+  };
+
+  // Part operations
+  const updatePart = (partId, updatedData) => {
+    const result = dataSync.updatePart(partId, updatedData);
+    refreshData();
+    return result;
+  };
+
+  const deletePart = (partId) => {
+    const result = dataSync.deletePart(partId);
+    refreshData();
+    return result;
+  };
+
+  const addPart = (partData) => {
+    const result = dataSync.addPart(partData);
+    refreshData();
+    return result;
+  };
+
+  // Tire operations
+  const updateTire = (tireId, updatedData) => {
+    const result = dataSync.updateTire(tireId, updatedData);
+    refreshData();
+    return result;
+  };
+
+  const deleteTire = (tireId) => {
+    const result = dataSync.deleteTire(tireId);
+    refreshData();
+    return result;
+  };
+
+  const addTire = (tireData) => {
+    const result = dataSync.addTire(tireData);
+    refreshData();
+    return result;
+  };
+
   const value = {
     data,
     refreshData,
@@ -138,7 +195,19 @@ export const DataProvider = ({ children }) => {
     checkMaintenanceAlerts: (vehicleId) => {
       dataSync.checkMaintenanceAlerts(vehicleId);
       refreshData();
-    }
+    },
+    // Driver CRUD
+    updateDriver,
+    deleteDriver,
+    addDriver,
+    // Part CRUD
+    updatePart,
+    deletePart,
+    addPart,
+    // Tire CRUD
+    updateTire,
+    deleteTire,
+    addTire
   };
 
   return (

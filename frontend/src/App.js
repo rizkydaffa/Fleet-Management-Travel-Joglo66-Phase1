@@ -79,6 +79,14 @@ function AppRouter() {
         } 
       />
       <Route 
+        path="/drivers/:id" 
+        element={
+          <ProtectedRoute allowedRoles={['Admin', 'Manager']}>
+            <DriverDetails />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
         path="/fuel" 
         element={
           <ProtectedRoute allowedRoles={['Admin', 'Manager', 'Driver']}>

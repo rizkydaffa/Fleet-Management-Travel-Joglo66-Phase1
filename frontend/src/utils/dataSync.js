@@ -305,6 +305,98 @@ export const getDashboardStats = () => {
   };
 };
 
+// Driver CRUD operations
+export const updateDriver = (driverId, updatedData) => {
+  const driverIndex = globalData.drivers.findIndex(d => d.driver_id === driverId);
+  if (driverIndex !== -1) {
+    globalData.drivers[driverIndex] = { ...globalData.drivers[driverIndex], ...updatedData };
+    return globalData.drivers[driverIndex];
+  }
+  return null;
+};
+
+export const deleteDriver = (driverId) => {
+  const driverIndex = globalData.drivers.findIndex(d => d.driver_id === driverId);
+  if (driverIndex !== -1) {
+    const deletedDriver = globalData.drivers[driverIndex];
+    globalData.drivers.splice(driverIndex, 1);
+    // Also remove driver assignments
+    globalData.driverAssignments = globalData.driverAssignments.filter(a => a.driver_id !== driverId);
+    return deletedDriver;
+  }
+  return null;
+};
+
+export const addDriver = (driverData) => {
+  const driver = {
+    driver_id: `drv_${Date.now()}`,
+    ...driverData,
+    created_at: new Date()
+  };
+  globalData.drivers.push(driver);
+  return driver;
+};
+
+// Part CRUD operations
+export const updatePart = (partId, updatedData) => {
+  const partIndex = globalData.parts.findIndex(p => p.part_id === partId);
+  if (partIndex !== -1) {
+    globalData.parts[partIndex] = { ...globalData.parts[partIndex], ...updatedData };
+    return globalData.parts[partIndex];
+  }
+  return null;
+};
+
+export const deletePart = (partId) => {
+  const partIndex = globalData.parts.findIndex(p => p.part_id === partId);
+  if (partIndex !== -1) {
+    const deletedPart = globalData.parts[partIndex];
+    globalData.parts.splice(partIndex, 1);
+    return deletedPart;
+  }
+  return null;
+};
+
+export const addPart = (partData) => {
+  const part = {
+    part_id: `part_${Date.now()}`,
+    ...partData,
+    created_at: new Date()
+  };
+  globalData.parts.push(part);
+  return part;
+};
+
+// Tire CRUD operations
+export const updateTire = (tireId, updatedData) => {
+  const tireIndex = globalData.tires.findIndex(t => t.tire_id === tireId);
+  if (tireIndex !== -1) {
+    globalData.tires[tireIndex] = { ...globalData.tires[tireIndex], ...updatedData };
+    return globalData.tires[tireIndex];
+  }
+  return null;
+};
+
+export const deleteTire = (tireId) => {
+  const tireIndex = globalData.tires.findIndex(t => t.tire_id === tireId);
+  if (tireIndex !== -1) {
+    const deletedTire = globalData.tires[tireIndex];
+    globalData.tires.splice(tireIndex, 1);
+    return deletedTire;
+  }
+  return null;
+};
+
+export const addTire = (tireData) => {
+  const tire = {
+    tire_id: `tire_${Date.now()}`,
+    ...tireData,
+    created_at: new Date()
+  };
+  globalData.tires.push(tire);
+  return tire;
+};
+
 // Export for use in components
 export const dataSync = {
   initializeData,
@@ -325,7 +417,19 @@ export const dataSync = {
   getFuelLogs,
   addWorkOrder,
   updateWorkOrderStatus,
-  getDashboardStats
+  getDashboardStats,
+  // Driver operations
+  updateDriver,
+  deleteDriver,
+  addDriver,
+  // Part operations
+  updatePart,
+  deletePart,
+  addPart,
+  // Tire operations
+  updateTire,
+  deleteTire,
+  addTire
 };
 
 export default dataSync;

@@ -18,7 +18,8 @@ import { format } from 'date-fns';
 const Dashboard = () => {
   const stats = mockDashboardStats;
   const recentAlerts = mockAlerts.slice(0, 5);
-  const recentWorkOrders = mockWorkOrders.slice(0, 5);
+  const highPriorityWorkOrders = mockWorkOrders.filter(wo => wo.priority === 'High' || wo.priority === 'Critical').slice(0, 5);
+  const recentWorkOrders = highPriorityWorkOrders.length > 0 ? highPriorityWorkOrders : mockWorkOrders.slice(0, 5);
   const vehiclesNeedingAttention = mockVehicles.filter(v => v.status !== 'Active');
 
   const statCards = [

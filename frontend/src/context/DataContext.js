@@ -146,22 +146,37 @@ export const DataProvider = ({ children }) => {
   };
 
   // Driver operations
-  const updateDriver = (driverId, updatedData) => {
-    const result = dataSync.updateDriver(driverId, updatedData);
-    refreshData();
-    return result;
+  const updateDriver = async (driverId, updatedData) => {
+    try {
+      const result = await driversAPI.update(driverId, updatedData);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error updating driver:', err);
+      throw err;
+    }
   };
 
-  const deleteDriver = (driverId) => {
-    const result = dataSync.deleteDriver(driverId);
-    refreshData();
-    return result;
+  const deleteDriver = async (driverId) => {
+    try {
+      const result = await driversAPI.delete(driverId);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error deleting driver:', err);
+      throw err;
+    }
   };
 
-  const addDriver = (driverData) => {
-    const result = dataSync.addDriver(driverData);
-    refreshData();
-    return result;
+  const addDriver = async (driverData) => {
+    try {
+      const result = await driversAPI.create(driverData);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error adding driver:', err);
+      throw err;
+    }
   };
 
   // Part operations

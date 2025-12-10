@@ -157,21 +157,21 @@ const Vehicles = () => {
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
               <Input
                 type="text"
                 placeholder="Search by plate, brand, or model..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-gray-900 border-gray-700 text-white placeholder-gray-500"
               />
             </div>
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-full sm:w-48">
+              <SelectTrigger className="w-full sm:w-48 bg-gray-900 border-gray-700 text-white">
                 <Filter className="w-4 h-4 mr-2" />
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-gray-900 border-gray-700 text-white">
                 <SelectItem value="all">All Status</SelectItem>
                 <SelectItem value="Active">Active</SelectItem>
                 <SelectItem value="Maintenance">Maintenance</SelectItem>
@@ -185,7 +185,7 @@ const Vehicles = () => {
             {filteredVehicles.map((vehicle) => (
               <Card 
                 key={vehicle.vehicle_id} 
-                className="hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                className="hover:shadow-xl transition-all duration-300 cursor-pointer group bg-gray-900 border-gray-800"
                 onClick={() => navigate(`/vehicles/${vehicle.vehicle_id}`)}
               >
                 <div className="h-48 overflow-hidden rounded-t-lg">

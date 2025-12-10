@@ -184,9 +184,9 @@ const Dashboard = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Recent Alerts */}
-            <Card>
+            <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
+                <CardTitle className="flex items-center justify-between text-white">
                   <span>Recent Alerts</span>
                   <Badge variant="destructive">{recentAlerts.length}</Badge>
                 </CardTitle>
@@ -194,14 +194,14 @@ const Dashboard = () => {
               <CardContent>
                 <div className="space-y-3">
                   {recentAlerts.map((alert) => (
-                    <div key={alert.alert_id} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                    <div key={alert.alert_id} className="flex items-start gap-3 p-3 bg-gray-800 rounded-lg border border-gray-700">
                       <AlertTriangle className={`w-5 h-5 mt-0.5 ${
-                        alert.priority === 'High' ? 'text-red-600' :
-                        alert.priority === 'Medium' ? 'text-orange-600' :
-                        'text-yellow-600'
+                        alert.priority === 'High' ? 'text-red-400' :
+                        alert.priority === 'Medium' ? 'text-orange-400' :
+                        'text-yellow-400'
                       }`} />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900">{alert.message}</p>
+                        <p className="text-sm font-medium text-white">{alert.message}</p>
                         <p className="text-xs text-gray-500 mt-1">{format(alert.created_at, 'MMM dd, yyyy')}</p>
                       </div>
                       <Badge variant={alert.priority === 'High' ? 'destructive' : 'secondary'}>
@@ -214,20 +214,20 @@ const Dashboard = () => {
             </Card>
 
             {/* Work Orders */}
-            <Card>
+            <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
-                <CardTitle>Active Work Orders</CardTitle>
+                <CardTitle className="text-white">Active Work Orders</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   {recentWorkOrders.map((order) => {
                     const vehicle = mockVehicles.find(v => v.vehicle_id === order.vehicle_id);
                     return (
-                      <div key={order.order_id} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                        <Wrench className="w-5 h-5 mt-0.5 text-blue-600" />
+                      <div key={order.order_id} className="flex items-start gap-3 p-3 bg-gray-800 rounded-lg border border-gray-700">
+                        <Wrench className="w-5 h-5 mt-0.5 text-blue-400" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">{vehicle?.plate}</p>
-                          <p className="text-xs text-gray-600 mt-1">{order.description}</p>
+                          <p className="text-sm font-medium text-white">{vehicle?.plate}</p>
+                          <p className="text-xs text-gray-400 mt-1">{order.description}</p>
                           <p className="text-xs text-gray-500 mt-1">Rp {(order.total_cost / 1000000).toFixed(1)}M</p>
                         </div>
                         <Badge variant={

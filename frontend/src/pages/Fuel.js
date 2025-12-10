@@ -60,6 +60,37 @@ const Fuel = () => {
                     <Input id="date" type="date" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>
                   <div>
+                    <Label htmlFor="fuelType" className="text-gray-300">Fuel Type *</Label>
+                    <Select>
+                      <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
+                        <SelectValue placeholder="Select fuel type" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                        <SelectItem value="Pertamax">Pertamax</SelectItem>
+                        <SelectItem value="Pertalite">Pertalite</SelectItem>
+                        <SelectItem value="Solar">Solar</SelectItem>
+                        <SelectItem value="DEX">DEX</SelectItem>
+                        <SelectItem value="Dexlite">Dexlite</SelectItem>
+                        <SelectItem value="Pertamax Turbo">Pertamax Turbo</SelectItem>
+                        <SelectItem value="Pertamax Green">Pertamax Green</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="fuelStation" className="text-gray-300">Fuel Station *</Label>
+                    <Select>
+                      <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
+                        <SelectValue placeholder="Select station" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-800 border-gray-700 text-white">
+                        <SelectItem value="Pertamina">Pertamina</SelectItem>
+                        <SelectItem value="Shell">Shell</SelectItem>
+                        <SelectItem value="BP">BP</SelectItem>
+                        <SelectItem value="Vivo">Vivo</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
                     <Label htmlFor="quantity" className="text-gray-300">Quantity (Liters) *</Label>
                     <Input id="quantity" type="number" placeholder="0" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                   </div>

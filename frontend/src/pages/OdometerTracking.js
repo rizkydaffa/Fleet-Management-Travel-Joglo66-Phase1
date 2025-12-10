@@ -108,6 +108,47 @@ const OdometerTracking = () => {
     return mockDrivers.find(d => d.driver_id === driverId);
   };
 
+  const handleStartTrip = () => {
+    if (!tripForm.vehicle_id || !tripForm.driver_id || !tripForm.start_odometer) {
+      alert('Please fill all required fields');
+      return;
+    }
+    
+    startTrip({
+      vehicle_id: tripForm.vehicle_id,
+      driver_id: tripForm.driver_id,
+      start_odometer: parseInt(tripForm.start_odometer),
+      purpose: tripForm.purpose
+    });
+    
+    setTripForm({ vehicle_id: '', driver_id: '', start_odometer: '', purpose: '' });
+    setIsStartTripOpen(false);
+  };
+
+  const handleEndTrip = () => {
+    if (!endOdometer || !selectedTrip) {
+      alert('Please enter ending odometer');
+      return;
+    }
+    
+    endTrip(selectedTrip.trip_id, parseInt(endOdometer));
+    setEndOdometer('');
+    setSelectedTrip(null);
+    setIsEndTripOpen(false);
+  };
+
+  const openEndTripDialog = (trip) => {
+    setSelectedTrip(trip);
+    setEndOdometer('');
+    setIsEndTripOpen(true);
+  };
+
+  const handleMarkAlertDone = (alertId) => {
+    if (window.confirm('Mark this maintenance alert as completed?')) {
+      markAlertAsDone(alertId);
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-black">
       <Sidebar />

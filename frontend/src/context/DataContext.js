@@ -214,22 +214,37 @@ export const DataProvider = ({ children }) => {
   };
 
   // Tire operations
-  const updateTire = (tireId, updatedData) => {
-    const result = dataSync.updateTire(tireId, updatedData);
-    refreshData();
-    return result;
+  const updateTire = async (tireId, updatedData) => {
+    try {
+      const result = await tiresAPI.update(tireId, updatedData);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error updating tire:', err);
+      throw err;
+    }
   };
 
-  const deleteTire = (tireId) => {
-    const result = dataSync.deleteTire(tireId);
-    refreshData();
-    return result;
+  const deleteTire = async (tireId) => {
+    try {
+      const result = await tiresAPI.delete(tireId);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error deleting tire:', err);
+      throw err;
+    }
   };
 
-  const addTire = (tireData) => {
-    const result = dataSync.addTire(tireData);
-    refreshData();
-    return result;
+  const addTire = async (tireData) => {
+    try {
+      const result = await tiresAPI.create(tireData);
+      await refreshData();
+      return result.data;
+    } catch (err) {
+      console.error('Error adding tire:', err);
+      throw err;
+    }
   };
 
   const value = {

@@ -34,7 +34,7 @@ const Tires = () => {
     return vehicle ? vehicle.plate : 'Unknown';
   };
 
-  const handleAddTire = () => {
+  const handleAddTire = async () => {
     if (!tireForm.vehicle_id || !tireForm.position || !tireForm.brand || !tireForm.size) {
       alert('Please fill all required fields');
       return;
@@ -47,12 +47,16 @@ const Tires = () => {
       status: 'Active'
     };
 
-    addTire(newTireData);
-    resetForm();
-    setIsAddModalOpen(false);
+    try {
+      await addTire(newTireData);
+      resetForm();
+      setIsAddModalOpen(false);
+    } catch (error) {
+      alert('Error adding tire: ' + (error.response?.data?.detail || error.message));
+    }
   };
 
-  const handleUpdateTire = () => {
+  const handleUpdateTire = async () => {
     if (!tireForm.vehicle_id || !tireForm.position || !tireForm.brand || !tireForm.size) {
       alert('Please fill all required fields');
       return;
@@ -64,22 +68,34 @@ const Tires = () => {
       cost: parseFloat(tireForm.cost) || 0
     };
 
-    updateTire(editingTire.tire_id, updatedTireData);
-    resetForm();
-    setEditingTire(null);
-  };
-
-  const handleToggleStatus = (tireId) => {
-    const tire = data.tires.find(t => t.tire_id === tireId);
-    if (tire) {
-      const newStatus = tire.status === 'Active' ? 'Replaced' : 'Active';
-      updateTire(tireId, { status: newStatus });
+    try {
+      await updateTire(editingTire.tire_id, updatedTireData);
+      resetForm();
+      setEditingTire(null);
+    } catch (error) {
+      alert('Error updating tire: ' + (error.response?.data?.detail || error.message));
     }
   };
 
-  const handleDelete = (tireId) => {
+  const handleToggleStatus = async (tireId) => {
+    const tire = data.tires.find(t => t.tire_id === tireId);
+    if (tire) {
+      const newStatus = tire.status === 'Active' ? 'Replaced' : 'Active';
+      try {
+        await updateTire(tireId, { status: newStatus });
+      } catch (error) {
+        alert('Error updating tire status: ' + (error.response?.data?.detail || error.message));
+      }
+    }
+  };
+
+  const handleDelete = async (tireId) => {
     if (window.confirm('Are you sure you want to delete this tire record?')) {
-      deleteTire(tireId);
+      try {
+        await deleteTire(tireId);
+      } catch (error) {
+        alert('Error deleting tire: ' + (error.response?.data?.detail || error.message));
+      }
     }
   };
 

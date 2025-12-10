@@ -1,70 +1,18 @@
-import React, { useEffect, useState, useRef } from 'react';
+// src/components/ProtectedRoute.js
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
-const ProtectedRoute = ({ children, allowedRoles = [] }) => {
-  const { user, loading, checkAuth } = useAuth();
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
   const location = useLocation();
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    location.state?.user ? true : null
-  );
-  const isChecking = useRef(false);
 
-  useEffect(() => {
-    if (isChecking.current) return;
-    isChecking.current = true;
-
-    let isMounted = true;
-
-    const verifyAuth = async () => {
-      if (location.state?.user) {
-        setIsAuthenticated(true);
-        isChecking.current = false;
-        return;
-      }
-
-      const justAuth = sessionStorage.getItem('just_authenticated');
-      if (!justAuth) {
-        await new Promise(r => setTimeout(r, 150));
-      } else {
-        sessionStorage.removeItem('just_authenticated');
-      }
-
-      if (isMounted) {
-        const authenticated = await checkAuth();
-        setIsAuthenticated(authenticated);
-      }
-      isChecking.current = false;
-    };
-
-    verifyAuth();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [location.pathname, checkAuth]);
-
-  if (loading || isAuthenticated === null) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
+  if (loading) {
+    return <div>Loading...</div>; // Or your loading component
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-
-  if (allowedRoles.length > 0 && user && !allowedRoles.includes(user.role)) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600">Access Denied</h1>
-          <p className="text-gray-600 mt-2">You don't have permission to access this page.</p>
-        </div>
-      </div>
-    );
+    // Redirect to login page but save the current location
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return children;

@@ -10,9 +10,21 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '../components/ui/label';
 
 const Parts = () => {
-  const [parts] = useState(mockPartsInventory);
+  const { data, refreshData } = useData();
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingPart, setEditingPart] = useState(null);
+  const [partForm, setPartForm] = useState({
+    name: '',
+    part_number: '',
+    quantity: '',
+    min_stock: '',
+    cost: '',
+    supplier: '',
+    location: ''
+  });
+
+  const parts = data.parts;
 
   const filteredParts = parts.filter(part =>
     part.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -58,7 +58,7 @@ const Maintenance = () => {
           </div>
 
           <Tabs defaultValue="records" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsList className="grid w-full grid-cols-3 mb-6 bg-gray-900">
               <TabsTrigger value="records">Maintenance Records</TabsTrigger>
               <TabsTrigger value="workorders">Work Orders</TabsTrigger>
               <TabsTrigger value="schedule">Schedule</TabsTrigger>

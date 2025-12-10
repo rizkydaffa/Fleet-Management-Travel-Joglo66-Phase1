@@ -36,7 +36,8 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     return () => {
       isMounted = false;
     };
-  }, [location.state, checkAuth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state]);
 
   if (loading || isAuthenticated === null) {
     return (

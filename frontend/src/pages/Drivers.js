@@ -107,36 +107,135 @@ const Drivers = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
                   <div>
                     <Label htmlFor="name" className="text-gray-300">Full Name *</Label>
-                    <Input id="name" placeholder="John Doe" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="name" 
+                      placeholder="John Doe" 
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="license" className="text-gray-300">License Number *</Label>
-                    <Input id="license" placeholder="B123456789" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="license" 
+                      placeholder="B123456789" 
+                      value={formData.license_number}
+                      onChange={(e) => setFormData({...formData, license_number: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="licenseExpiry" className="text-gray-300">License Expiry *</Label>
-                    <Input id="licenseExpiry" type="date" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="licenseExpiry" 
+                      type="date" 
+                      value={formData.license_expiry}
+                      onChange={(e) => setFormData({...formData, license_expiry: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="phone" className="text-gray-300">Phone *</Label>
-                    <Input id="phone" placeholder="+62 812-3456-7890" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="phone" 
+                      placeholder="+62 812-3456-7890" 
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div className="md:col-span-2">
                     <Label htmlFor="email" className="text-gray-300">Email</Label>
-                    <Input id="email" type="email" placeholder="driver@joglo66.com" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="driver@joglo66.com" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div className="md:col-span-2">
                     <Label htmlFor="driverPhoto" className="text-gray-300">Driver Photo</Label>
                     <Input id="driverPhoto" type="file" accept="image/*" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <p className="text-xs text-gray-500 mt-1">Photo upload will be implemented in backend integration</p>
                   </div>
                   <div className="md:col-span-2">
                     <Label htmlFor="ktpPhoto" className="text-gray-300">KTP Photo</Label>
                     <Input id="ktpPhoto" type="file" accept="image/*" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <p className="text-xs text-gray-500 mt-1">Photo upload will be implemented in backend integration</p>
                   </div>
                 </div>
                 <div className="flex justify-end gap-3">
                   <Button variant="outline" onClick={() => setIsAddModalOpen(false)}>Cancel</Button>
-                  <Button onClick={() => setIsAddModalOpen(false)}>Save Driver</Button>
+                  <Button onClick={handleAddDriver}>Save Driver</Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            {/* Edit Driver Modal */}
+            <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 text-white border-gray-700">
+                <DialogHeader>
+                  <DialogTitle className="text-white">Edit Driver</DialogTitle>
+                </DialogHeader>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+                  <div>
+                    <Label htmlFor="edit-name" className="text-gray-300">Full Name *</Label>
+                    <Input 
+                      id="edit-name" 
+                      placeholder="John Doe" 
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit-license" className="text-gray-300">License Number *</Label>
+                    <Input 
+                      id="edit-license" 
+                      placeholder="B123456789" 
+                      value={formData.license_number}
+                      onChange={(e) => setFormData({...formData, license_number: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit-licenseExpiry" className="text-gray-300">License Expiry *</Label>
+                    <Input 
+                      id="edit-licenseExpiry" 
+                      type="date" 
+                      value={formData.license_expiry}
+                      onChange={(e) => setFormData({...formData, license_expiry: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit-phone" className="text-gray-300">Phone *</Label>
+                    <Input 
+                      id="edit-phone" 
+                      placeholder="+62 812-3456-7890" 
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="edit-email" className="text-gray-300">Email</Label>
+                    <Input 
+                      id="edit-email" 
+                      type="email" 
+                      placeholder="driver@joglo66.com" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3">
+                  <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>Cancel</Button>
+                  <Button onClick={handleEditDriver}>Update Driver</Button>
                 </div>
               </DialogContent>
             </Dialog>

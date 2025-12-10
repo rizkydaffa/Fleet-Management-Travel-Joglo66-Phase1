@@ -102,7 +102,14 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the Edit and Delete functionality for Drivers, Parts, and Tires modules in the Fleet Management app. The user wants to verify that CRUD operations work correctly for these three modules with mock data stored in DataContext."
+user_problem_statement: "Test the Edit and Delete functionality for Drivers, Parts, and Tires modules in the Fleet Management app. The user wants to verify that CRUD operations work correctly for these three modules with mock data stored in DataContext.
+
+CURRENT ISSUE (Railway Deployment):
+User deployed app to Railway (backend) and Vercel (frontend) but experiencing:
+1. Railway backend failing to start - PORT environment variable error
+2. Google OAuth login loops back to login page instead of completing authentication
+
+Vercel Frontend URL: https://fleet-management-travel-joglo66-phase1-tjfe-ec4ih564j.vercel.app/"
 
 frontend:
   - task: "Drivers Edit Functionality"

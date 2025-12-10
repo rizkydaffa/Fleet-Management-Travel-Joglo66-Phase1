@@ -13,6 +13,7 @@ import { Textarea } from '../components/ui/textarea';
 import { format } from 'date-fns';
 
 const Drivers = () => {
+  const navigate = useNavigate();
   const [drivers] = useState(mockDrivers);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);

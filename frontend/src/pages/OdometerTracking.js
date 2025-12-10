@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import { mockVehicles, mockDrivers } from '../mock/mockData';
+import { useData } from '../context/DataContext';
 import { Plus, Search, Navigation, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';

@@ -81,12 +81,12 @@ const Dashboard = () => {
             {statCards.map((stat, idx) => {
               const Icon = stat.icon;
               return (
-                <Card key={idx} className="hover:shadow-lg transition-shadow">
+                <Card key={idx} className="hover:shadow-xl transition-shadow bg-gray-900 border-gray-800">
                   <CardContent className="pt-6">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                        <p className="text-3xl font-bold text-gray-900 mt-2">{stat.value}</p>
+                        <p className="text-sm font-medium text-gray-400">{stat.title}</p>
+                        <p className="text-3xl font-bold text-white mt-2">{stat.value}</p>
                         <p className="text-sm text-gray-500 mt-1">{stat.subtitle}</p>
                       </div>
                       <div className={`p-3 rounded-lg ${getColorClass(stat.color)}`}>

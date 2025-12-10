@@ -431,18 +431,41 @@ const OdometerTracking = () => {
                 <DialogTitle className="text-white">End Trip</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
-                <div>
-                  <Label htmlFor="endOdometer" className="text-gray-300">Ending Odometer (km) *</Label>
-                  <Input id="endOdometer" type="number" placeholder="45200" className="mt-1 bg-gray-800 border-gray-700 text-white" />
-                </div>
-                <div className="p-4 bg-gray-800 rounded-lg">
-                  <p className="text-sm text-gray-400">Distance Traveled</p>
-                  <p className="text-2xl font-bold text-white">200 km</p>
-                </div>
+                {selectedTrip && (
+                  <>
+                    <div className="p-3 bg-gray-800 rounded-lg">
+                      <p className="text-sm text-gray-400">Starting Odometer</p>
+                      <p className="text-lg font-bold text-white">{selectedTrip.start_odometer.toLocaleString()} km</p>
+                    </div>
+                    <div>
+                      <Label htmlFor="endOdometer" className="text-gray-300">Ending Odometer (km) *</Label>
+                      <Input 
+                        id="endOdometer" 
+                        type="number" 
+                        placeholder={`Min: ${selectedTrip.start_odometer}`}
+                        value={endOdometer}
+                        onChange={(e) => setEndOdometer(e.target.value)}
+                        min={selectedTrip.start_odometer}
+                        className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                      />
+                    </div>
+                    {endOdometer && parseInt(endOdometer) > selectedTrip.start_odometer && (
+                      <div className="p-4 bg-green-900/20 border border-green-500/20 rounded-lg">
+                        <p className="text-sm text-gray-400">Distance Traveled</p>
+                        <p className="text-2xl font-bold text-green-400">{(parseInt(endOdometer) - selectedTrip.start_odometer).toLocaleString()} km</p>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
               <div className="flex justify-end gap-3">
                 <Button variant="outline" onClick={() => setIsEndTripOpen(false)}>Cancel</Button>
-                <Button onClick={() => setIsEndTripOpen(false)}>Complete Trip</Button>
+                <Button 
+                  onClick={handleEndTrip}
+                  disabled={!endOdometer || parseInt(endOdometer) <= (selectedTrip?.start_odometer || 0)}
+                >
+                  Complete Trip
+                </Button>
               </div>
             </DialogContent>
           </Dialog>

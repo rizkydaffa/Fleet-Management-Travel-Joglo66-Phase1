@@ -45,8 +45,7 @@ const AuthCallback = () => {
     };
 
     processAuth();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigate, setUser]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

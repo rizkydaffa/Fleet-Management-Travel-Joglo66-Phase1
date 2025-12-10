@@ -54,6 +54,14 @@ function AppRouter() {
         } 
       />
       <Route 
+        path="/odometer" 
+        element={
+          <ProtectedRoute allowedRoles={['Admin', 'Manager', 'Driver']}>
+            <OdometerTracking />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
         path="/maintenance" 
         element={
           <ProtectedRoute allowedRoles={['Admin', 'Manager', 'Mechanic']}>

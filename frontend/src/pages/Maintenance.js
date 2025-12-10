@@ -136,16 +136,20 @@ const Maintenance = () => {
                         <Input id="cost" type="number" placeholder="0" className="mt-1" />
                       </div>
                       <div>
-                        <Label htmlFor="technician">Technician</Label>
-                        <Input id="technician" placeholder="Technician name" className="mt-1" />
+                        <Label htmlFor="placeOfService" className="text-gray-300">Place of Service *</Label>
+                        <Input id="placeOfService" placeholder="Workshop name or location" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                       </div>
                       <div>
-                        <Label htmlFor="warranty">Warranty Expiry</Label>
-                        <Input id="warranty" type="date" className="mt-1" />
+                        <Label htmlFor="warranty" className="text-gray-300">Warranty Expiry</Label>
+                        <Input id="warranty" type="date" className="mt-1 bg-gray-800 border-gray-700 text-white" />
                       </div>
                       <div className="md:col-span-2">
-                        <Label htmlFor="notes">Notes</Label>
-                        <Textarea id="notes" placeholder="Additional notes..." className="mt-1" rows={3} />
+                        <Label htmlFor="billPhoto" className="text-gray-300">Bill/Receipt Photo (Optional)</Label>
+                        <Input id="billPhoto" type="file" accept="image/*" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                      </div>
+                      <div className="md:col-span-2">
+                        <Label htmlFor="notes" className="text-gray-300">Notes</Label>
+                        <Textarea id="notes" placeholder="Additional notes..." className="mt-1 bg-gray-800 border-gray-700 text-white" rows={3} />
                       </div>
                     </div>
                     <div className="flex justify-end gap-3">

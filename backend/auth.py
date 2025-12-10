@@ -57,6 +57,10 @@ async def get_current_user(request: Request) -> User:
 async def process_session(session_request: SessionRequest, response: Response):
     """Process session_id from OAuth and create user session"""
     try:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"Processing session for session_id: {session_request.session_id[:10]}...")
+        
         # Call Emergent Auth API to get session data
         async with httpx.AsyncClient() as http_client:
             auth_response = await http_client.get(
@@ -64,6 +68,8 @@ async def process_session(session_request: SessionRequest, response: Response):
                 headers={"X-Session-ID": session_request.session_id},
                 timeout=10.0
             )
+        
+        logger.info(f"Auth API response status: {auth_response.status_code}")
         
         if auth_response.status_code != 200:
             raise HTTPException(status_code=400, detail="Invalid session ID")

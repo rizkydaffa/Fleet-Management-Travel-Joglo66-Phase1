@@ -72,6 +72,7 @@ async def process_session(session_request: SessionRequest, response: Response):
         logger.info(f"Auth API response status: {auth_response.status_code}")
         
         if auth_response.status_code != 200:
+            logger.error(f"Auth API error: {auth_response.status_code} - {auth_response.text}")
             raise HTTPException(status_code=400, detail="Invalid session ID")
         
         session_data = auth_response.json()

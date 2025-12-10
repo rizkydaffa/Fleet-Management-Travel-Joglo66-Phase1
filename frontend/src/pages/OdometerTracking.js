@@ -314,13 +314,13 @@ const OdometerTracking = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {mockVehicles.map((vehicle) => {
-                  const alerts = getMaintenanceAlerts(vehicle);
-                  if (alerts.length === 0) return null;
+                {data.alerts.filter(a => a.status === 'Active' && a.type === 'ServiceDue').map((alert) => {
+                  const vehicle = getVehicleInfo(alert.vehicle_id);
+                  if (!vehicle) return null;
                   
                   return (
-                    <div key={vehicle.vehicle_id} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
-                      <div className="flex items-center gap-4">
+                    <div key={alert.alert_id} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
+                      <div className="flex items-start gap-4">
                         {vehicle.photos && vehicle.photos.length > 0 && (
                           <img 
                             src={vehicle.photos[0]} 
@@ -329,27 +329,40 @@ const OdometerTracking = () => {
                           />
                         )}
                         <div className="flex-1">
-                          <h3 className="text-lg font-bold text-white mb-2">{vehicle.plate}</h3>
-                          <p className="text-sm text-gray-400 mb-3">Current: {vehicle.mileage.toLocaleString()} km</p>
-                          <div className="flex flex-wrap gap-2">
-                            {alerts.map((alert, idx) => (
-                              <Badge 
-                                key={idx}
-                                className={
-                                  alert.priority === 'Critical' ? 'bg-red-500/20 text-red-400' :
-                                  alert.priority === 'High' ? 'bg-orange-500/20 text-orange-400' :
-                                  'bg-yellow-500/20 text-yellow-400'
-                                }
-                              >
-                                {alert.type} {alert.kmUntilDue === 0 ? '- OVERDUE' : `in ${alert.kmUntilDue} km`}
-                              </Badge>
-                            ))}
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-lg font-bold text-white">{vehicle.plate}</h3>
+                            <Badge 
+                              className={
+                                alert.priority === 'Critical' ? 'bg-red-500/20 text-red-400' :
+                                alert.priority === 'High' ? 'bg-orange-500/20 text-orange-400' :
+                                'bg-yellow-500/20 text-yellow-400'
+                              }
+                            >
+                              {alert.priority} Priority
+                            </Badge>
                           </div>
+                          <p className="text-sm text-gray-300 mb-2">{alert.message}</p>
+                          <p className="text-xs text-gray-500">Current: {vehicle.mileage.toLocaleString()} km</p>
                         </div>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleMarkAlertDone(alert.alert_id)}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          <CheckCircle className="w-4 h-4 mr-1" />
+                          Mark Done
+                        </Button>
                       </div>
                     </div>
                   );
                 })}
+                {data.alerts.filter(a => a.status === 'Active' && a.type === 'ServiceDue').length === 0 && (
+                  <div className="text-center py-8 text-gray-400">
+                    <CheckCircle className="w-12 h-12 mx-auto mb-3 text-green-600" />
+                    <p>All vehicles are up to date!</p>
+                    <p className="text-sm mt-1">No maintenance alerts at this time</p>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>

@@ -16,6 +16,7 @@ import Tires from "./pages/Tires";
 import Inspections from "./pages/Inspections";
 import Alerts from "./pages/Alerts";
 import Reports from "./pages/Reports";
+import OdometerTracking from "./pages/OdometerTracking";
 
 function AppRouter() {
   const location = useLocation();

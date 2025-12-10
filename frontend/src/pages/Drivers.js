@@ -159,7 +159,12 @@ const Drivers = () => {
                     </div>
 
                     <div className="mt-4 pt-4 border-t border-gray-800">
-                      <Button variant="outline" size="sm" className="w-full border-gray-700 text-gray-300 hover:bg-gray-800">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full border-gray-700 text-gray-300 hover:bg-gray-800"
+                        onClick={() => navigate(`/drivers/${driver.driver_id}`)}
+                      >
                         View Details
                       </Button>
                     </div>

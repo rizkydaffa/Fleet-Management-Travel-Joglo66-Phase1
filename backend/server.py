@@ -26,6 +26,19 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
+# Inject db into all modules
+import auth, vehicles, maintenance, drivers, fuel, parts, tires, inspections, alerts, dashboard
+auth.db = db
+vehicles.db = db
+maintenance.db = db
+drivers.db = db
+fuel.db = db
+parts.db = db
+tires.db = db
+inspections.db = db
+alerts.db = db
+dashboard.db = db
+
 # Create the main app without a prefix
 app = FastAPI(title="Fleet Management API", version="1.0.0")
 

@@ -99,21 +99,37 @@ const Reports = () => {
         <div className="p-6 lg:p-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-white">Reports & Analytics</h1>
+              <h1 className="text-3xl font-bold text-white">Reports & Analytics (Laporan)</h1>
               <p className="text-gray-400 mt-1">Fleet performance insights and metrics</p>
             </div>
-            <Button className="mt-4 sm:mt-0">
-              <Download className="w-4 h-4 mr-2" />
-              Export Report
-            </Button>
+            <div className="flex gap-3 mt-4 sm:mt-0">
+              <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                <SelectTrigger className="w-48 bg-gray-900 border-gray-700 text-white">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-900 border-gray-700 text-white">
+                  <SelectItem value="current">Current Month</SelectItem>
+                  <SelectItem value="last">Last Month</SelectItem>
+                  <SelectItem value="3months">Last 3 Months</SelectItem>
+                  <SelectItem value="6months">Last 6 Months</SelectItem>
+                  <SelectItem value="year">This Year</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button onClick={exportToExcel}>
+                <Download className="w-4 h-4 mr-2" />
+                Export to Excel
+              </Button>
+            </div>
           </div>
 
-          <Tabs defaultValue="cost" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-6">
-              <TabsTrigger value="cost">Cost Analysis</TabsTrigger>
-              <TabsTrigger value="utilization">Utilization</TabsTrigger>
-              <TabsTrigger value="fuel">Fuel Efficiency</TabsTrigger>
+          <Tabs defaultValue="tco" className="w-full">
+            <TabsList className="grid w-full grid-cols-5 mb-6">
+              <TabsTrigger value="tco">TCO Analysis</TabsTrigger>
               <TabsTrigger value="downtime">Downtime</TabsTrigger>
+              <TabsTrigger value="reliability">Reliability</TabsTrigger>
+              <TabsTrigger value="fuel">Fuel Efficiency</TabsTrigger>
+              <TabsTrigger value="cost">Operating Cost</TabsTrigger>
             </TabsList>
 
             <TabsContent value="cost">

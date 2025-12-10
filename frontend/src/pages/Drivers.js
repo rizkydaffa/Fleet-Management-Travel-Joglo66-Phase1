@@ -43,30 +43,42 @@ const Drivers = () => {
     return null;
   };
 
-  const handleAddDriver = () => {
+  const handleAddDriver = async () => {
     if (!formData.name || !formData.license_number || !formData.license_expiry || !formData.phone) {
       alert('Please fill in all required fields');
       return;
     }
-    addDriver(formData);
-    setFormData({ name: '', license_number: '', license_expiry: '', phone: '', email: '', status: 'Active' });
-    setIsAddModalOpen(false);
+    try {
+      await addDriver(formData);
+      setFormData({ name: '', license_number: '', license_expiry: '', phone: '', email: '', status: 'Active' });
+      setIsAddModalOpen(false);
+    } catch (error) {
+      alert('Error adding driver: ' + (error.response?.data?.detail || error.message));
+    }
   };
 
-  const handleEditDriver = () => {
+  const handleEditDriver = async () => {
     if (!formData.name || !formData.license_number || !formData.license_expiry || !formData.phone) {
       alert('Please fill in all required fields');
       return;
     }
-    updateDriver(selectedDriver.driver_id, formData);
-    setFormData({ name: '', license_number: '', license_expiry: '', phone: '', email: '', status: 'Active' });
-    setIsEditModalOpen(false);
-    setSelectedDriver(null);
+    try {
+      await updateDriver(selectedDriver.driver_id, formData);
+      setFormData({ name: '', license_number: '', license_expiry: '', phone: '', email: '', status: 'Active' });
+      setIsEditModalOpen(false);
+      setSelectedDriver(null);
+    } catch (error) {
+      alert('Error updating driver: ' + (error.response?.data?.detail || error.message));
+    }
   };
 
-  const handleDeleteDriver = (driver) => {
+  const handleDeleteDriver = async (driver) => {
     if (window.confirm(`Are you sure you want to delete driver ${driver.name}?`)) {
-      deleteDriver(driver.driver_id);
+      try {
+        await deleteDriver(driver.driver_id);
+      } catch (error) {
+        alert('Error deleting driver: ' + (error.response?.data?.detail || error.message));
+      }
     }
   };
 

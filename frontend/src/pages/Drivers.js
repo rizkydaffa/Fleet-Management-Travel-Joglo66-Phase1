@@ -309,14 +309,30 @@ const Drivers = () => {
                       )}
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-gray-800">
+                    <div className="mt-4 pt-4 border-t border-gray-800 flex gap-2">
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="w-full border-gray-700 text-gray-300 hover:bg-gray-800"
+                        className="flex-1 border-gray-700 text-gray-300 hover:bg-gray-800"
                         onClick={() => navigate(`/drivers/${driver.driver_id}`)}
                       >
                         View Details
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
+                        onClick={() => openEditModal(driver)}
+                      >
+                        <Edit className="w-4 h-4" />
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="border-red-500 text-red-400 hover:bg-red-500/10"
+                        onClick={() => handleDeleteDriver(driver)}
+                      >
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </CardContent>

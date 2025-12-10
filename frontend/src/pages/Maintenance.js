@@ -102,17 +102,24 @@ const Maintenance = () => {
                         </Select>
                       </div>
                       <div>
-                        <Label htmlFor="serviceType">Service Type *</Label>
+                        <Label htmlFor="serviceType" className="text-gray-300">Service Type *</Label>
                         <Select>
-                          <SelectTrigger className="mt-1">
+                          <SelectTrigger className="mt-1 bg-gray-800 border-gray-700 text-white">
                             <SelectValue placeholder="Select type" />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent className="bg-gray-800 border-gray-700 text-white">
                             <SelectItem value="Oil Change">Oil Change</SelectItem>
                             <SelectItem value="Brake Service">Brake Service</SelectItem>
                             <SelectItem value="Tire Rotation">Tire Rotation</SelectItem>
                             <SelectItem value="Engine Overhaul">Engine Overhaul</SelectItem>
                             <SelectItem value="General Inspection">General Inspection</SelectItem>
+                            <SelectItem value="Transmission Service">Transmission Service</SelectItem>
+                            <SelectItem value="AC Service">AC Service</SelectItem>
+                            <SelectItem value="Battery Replacement">Battery Replacement</SelectItem>
+                            <SelectItem value="Suspension Repair">Suspension Repair</SelectItem>
+                            <SelectItem value="Exhaust System">Exhaust System</SelectItem>
+                            <SelectItem value="Cooling System">Cooling System</SelectItem>
+                            <SelectItem value="Electrical System">Electrical System</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

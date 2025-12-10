@@ -105,9 +105,9 @@ const Dashboard = () => {
 
           {/* Cost Overview */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <Card>
+            <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-white">
                   <DollarSign className="w-5 h-5" />
                   Monthly Costs
                 </CardTitle>
@@ -116,65 +116,65 @@ const Dashboard = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Fuel</p>
-                      <p className="text-2xl font-bold text-gray-900">Rp {(stats.monthlyFuelCost / 1000000).toFixed(1)}M</p>
+                      <p className="text-sm text-gray-400">Fuel</p>
+                      <p className="text-2xl font-bold text-white">Rp {(stats.monthlyFuelCost / 1000000).toFixed(1)}M</p>
                     </div>
-                    <div className="flex items-center text-green-600">
+                    <div className="flex items-center text-green-400">
                       <TrendingDown className="w-4 h-4 mr-1" />
                       <span className="text-sm">-5%</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Maintenance</p>
-                      <p className="text-2xl font-bold text-gray-900">Rp {(stats.monthlyMaintenanceCost / 1000000).toFixed(1)}M</p>
+                      <p className="text-sm text-gray-400">Maintenance</p>
+                      <p className="text-2xl font-bold text-white">Rp {(stats.monthlyMaintenanceCost / 1000000).toFixed(1)}M</p>
                     </div>
-                    <div className="flex items-center text-red-600">
+                    <div className="flex items-center text-red-400">
                       <TrendingUp className="w-4 h-4 mr-1" />
                       <span className="text-sm">+12%</span>
                     </div>
                   </div>
-                  <div className="pt-4 border-t">
+                  <div className="pt-4 border-t border-gray-800">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-gray-700">Total</p>
-                      <p className="text-xl font-bold text-gray-900">Rp {((stats.monthlyFuelCost + stats.monthlyMaintenanceCost) / 1000000).toFixed(1)}M</p>
+                      <p className="text-sm font-medium text-gray-300">Total</p>
+                      <p className="text-xl font-bold text-white">Rp {((stats.monthlyFuelCost + stats.monthlyMaintenanceCost) / 1000000).toFixed(1)}M</p>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
-                <CardTitle>Fleet Performance</CardTitle>
+                <CardTitle className="text-white">Fleet Performance</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm text-gray-600">Average Fuel Efficiency</p>
-                      <p className="text-lg font-semibold">{stats.avgFuelEfficiency} km/L</p>
+                      <p className="text-sm text-gray-400">Average Fuel Efficiency</p>
+                      <p className="text-lg font-semibold text-white">{stats.avgFuelEfficiency} km/L</p>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-green-600 h-2 rounded-full" style={{ width: '75%' }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm text-gray-600">Total Mileage This Month</p>
-                      <p className="text-lg font-semibold">{stats.totalMileageThisMonth.toLocaleString()} km</p>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-blue-600 h-2 rounded-full" style={{ width: '60%' }}></div>
+                    <div className="w-full bg-gray-800 rounded-full h-2">
+                      <div className="bg-green-500 h-2 rounded-full" style={{ width: '75%' }}></div>
                     </div>
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm text-gray-600">Vehicle Utilization</p>
-                      <p className="text-lg font-semibold">80%</p>
+                      <p className="text-sm text-gray-400">Total Mileage This Month</p>
+                      <p className="text-lg font-semibold text-white">{stats.totalMileageThisMonth.toLocaleString()} km</p>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-purple-600 h-2 rounded-full" style={{ width: '80%' }}></div>
+                    <div className="w-full bg-gray-800 rounded-full h-2">
+                      <div className="bg-blue-500 h-2 rounded-full" style={{ width: '60%' }}></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm text-gray-400">Vehicle Utilization</p>
+                      <p className="text-lg font-semibold text-white">80%</p>
+                    </div>
+                    <div className="w-full bg-gray-800 rounded-full h-2">
+                      <div className="bg-purple-500 h-2 rounded-full" style={{ width: '80%' }}></div>
                     </div>
                   </div>
                 </div>

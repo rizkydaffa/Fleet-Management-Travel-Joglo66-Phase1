@@ -6,11 +6,15 @@ import os
 from motor.motor_asyncio import AsyncIOMotorClient
 from models import User, UserSession, SessionRequest, SessionResponse
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
-
 auth_router = APIRouter(prefix="/auth", tags=["Authentication"])
+
+# Get MongoDB connection from environment (will be set by server.py)
+def get_db():
+    mongo_url = os.environ.get('MONGO_URL')
+    client = AsyncIOMotorClient(mongo_url)
+    return client[os.environ['DB_NAME']]
+
+db = None  # Will be set when module is imported
 
 # Helper function to get user from session
 async def get_current_user(request: Request) -> User:

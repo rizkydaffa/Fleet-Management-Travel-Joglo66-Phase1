@@ -145,7 +145,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <AuthProvider>
-          <AppRouter />
+          <DataProvider>
+            <AppRouter />
+          </DataProvider>
         </AuthProvider>
       </BrowserRouter>
     </div>

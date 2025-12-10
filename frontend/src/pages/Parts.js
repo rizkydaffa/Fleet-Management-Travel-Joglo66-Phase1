@@ -112,50 +112,107 @@ const Parts = () => {
               <h1 className="text-3xl font-bold text-white">Parts Inventory</h1>
               <p className="text-gray-400 mt-1">Manage spare parts and stock levels</p>
             </div>
-            <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+            <Dialog open={isAddModalOpen || editingPart !== null} onOpenChange={(open) => {
+              if (!open) {
+                setIsAddModalOpen(false);
+                setEditingPart(null);
+                resetForm();
+              }
+            }}>
               <DialogTrigger asChild>
-                <Button className="mt-4 sm:mt-0">
+                <Button className="mt-4 sm:mt-0" onClick={() => setIsAddModalOpen(true)}>
                   <Plus className="w-4 h-4 mr-2" />
                   Add Part
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-2xl bg-gray-900 text-white border-gray-700">
                 <DialogHeader>
-                  <DialogTitle className="text-white">Add New Part</DialogTitle>
+                  <DialogTitle className="text-white">{editingPart ? 'Edit Part' : 'Add New Part'}</DialogTitle>
                 </DialogHeader>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
                   <div>
                     <Label htmlFor="name" className="text-gray-300">Part Name *</Label>
-                    <Input id="name" placeholder="Engine Oil 5W-30" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="name" 
+                      placeholder="Engine Oil 5W-30" 
+                      value={partForm.name}
+                      onChange={(e) => setPartForm({...partForm, name: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="partNumber" className="text-gray-300">Part Number *</Label>
-                    <Input id="partNumber" placeholder="OIL-5W30-001" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="partNumber" 
+                      placeholder="OIL-5W30-001" 
+                      value={partForm.part_number}
+                      onChange={(e) => setPartForm({...partForm, part_number: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="quantity" className="text-gray-300">Quantity *</Label>
-                    <Input id="quantity" type="number" placeholder="0" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="quantity" 
+                      type="number" 
+                      placeholder="0" 
+                      value={partForm.quantity}
+                      onChange={(e) => setPartForm({...partForm, quantity: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="minStock" className="text-gray-300">Min Stock *</Label>
-                    <Input id="minStock" type="number" placeholder="0" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="minStock" 
+                      type="number" 
+                      placeholder="0" 
+                      value={partForm.min_stock}
+                      onChange={(e) => setPartForm({...partForm, min_stock: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="cost" className="text-gray-300">Cost (Rp) *</Label>
-                    <Input id="cost" type="number" placeholder="0" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="cost" 
+                      type="number" 
+                      placeholder="0" 
+                      value={partForm.cost}
+                      onChange={(e) => setPartForm({...partForm, cost: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="supplier" className="text-gray-300">Supplier</Label>
-                    <Input id="supplier" placeholder="Supplier name" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="supplier" 
+                      placeholder="Supplier name" 
+                      value={partForm.supplier}
+                      onChange={(e) => setPartForm({...partForm, supplier: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                   <div className="md:col-span-2">
                     <Label htmlFor="location" className="text-gray-300">Location</Label>
-                    <Input id="location" placeholder="Warehouse A-1" className="mt-1 bg-gray-800 border-gray-700 text-white" />
+                    <Input 
+                      id="location" 
+                      placeholder="Warehouse A-1" 
+                      value={partForm.location}
+                      onChange={(e) => setPartForm({...partForm, location: e.target.value})}
+                      className="mt-1 bg-gray-800 border-gray-700 text-white" 
+                    />
                   </div>
                 </div>
                 <div className="flex justify-end gap-3">
-                  <Button variant="outline" onClick={() => setIsAddModalOpen(false)}>Cancel</Button>
-                  <Button onClick={() => setIsAddModalOpen(false)}>Save Part</Button>
+                  <Button variant="outline" onClick={() => {
+                    setIsAddModalOpen(false);
+                    setEditingPart(null);
+                    resetForm();
+                  }}>Cancel</Button>
+                  <Button onClick={editingPart ? handleUpdatePart : handleAddPart}>
+                    {editingPart ? 'Update' : 'Save'} Part
+                  </Button>
                 </div>
               </DialogContent>
             </Dialog>

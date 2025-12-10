@@ -105,14 +105,14 @@ const Sidebar = () => {
       {/* Mobile Sidebar */}
       {isMobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setIsMobileMenuOpen(false)}>
-          <aside className="fixed inset-y-0 left-0 w-64 bg-white flex flex-col shadow-xl" onClick={(e) => e.stopPropagation()}>
+          <aside className="fixed inset-y-0 left-0 w-64 bg-gray-950 flex flex-col shadow-xl border-r border-gray-800" onClick={(e) => e.stopPropagation()}>
             <NavContent />
           </aside>
         </div>
       )}
 
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex fixed inset-y-0 left-0 w-64 bg-white flex-col border-r border-gray-200">
+      <aside className="hidden lg:flex fixed inset-y-0 left-0 w-64 bg-gray-950 flex-col border-r border-gray-800">
         <NavContent />
       </aside>
     </>

@@ -12,44 +12,27 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { format } from 'date-fns';
 
 const OdometerTracking = () => {
+  const { data, startTrip, endTrip, getActiveTrips, getCompletedTrips, markAlertAsDone } = useData();
   const [isStartTripOpen, setIsStartTripOpen] = useState(false);
   const [isEndTripOpen, setIsEndTripOpen] = useState(false);
+  const [selectedTrip, setSelectedTrip] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  
+  // Form data
+  const [tripForm, setTripForm] = useState({
+    vehicle_id: '',
+    driver_id: '',
+    start_odometer: '',
+    purpose: ''
+  });
+  
+  const [endOdometer, setEndOdometer] = useState('');
 
-  // Mock active trips
-  const [activeTrips] = useState([
-    {
-      trip_id: 'trip_001',
-      vehicle_id: 'veh_001',
-      driver_id: 'drv_001',
-      start_odometer: 45000,
-      start_time: new Date(),
-      status: 'In Progress'
-    },
-    {
-      trip_id: 'trip_002',
-      vehicle_id: 'veh_002',
-      driver_id: 'drv_002',
-      start_odometer: 68000,
-      start_time: new Date(Date.now() - 2*60*60*1000),
-      status: 'In Progress'
-    }
-  ]);
-
-  // Mock completed trips
-  const [completedTrips] = useState([
-    {
-      trip_id: 'trip_003',
-      vehicle_id: 'veh_001',
-      driver_id: 'drv_001',
-      start_odometer: 44800,
-      end_odometer: 45000,
-      distance: 200,
-      start_time: new Date(Date.now() - 24*60*60*1000),
-      end_time: new Date(Date.now() - 20*60*60*1000),
-      status: 'Completed'
-    }
-  ]);
+  const activeTrips = getActiveTrips();
+  const completedTrips = getCompletedTrips().slice(0, 10);
+  
+  const mockVehicles = data.vehicles;
+  const mockDrivers = data.drivers;
 
   // Service intervals configuration
   const serviceIntervals = {

@@ -257,23 +257,23 @@ const Maintenance = () => {
 
               <div className="grid gap-4">
                 {workOrders.map((order) => (
-                  <Card key={order.order_id} className="hover:shadow-lg transition-shadow">
+                  <Card key={order.order_id} className="hover:shadow-lg transition-shadow bg-gray-900 border-gray-800">
                     <CardContent className="pt-6">
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
-                            <FileText className="w-5 h-5 text-blue-600" />
+                            <FileText className="w-5 h-5 text-blue-400" />
                             <div>
                               <div className="flex items-center gap-2">
-                                <h3 className="text-lg font-bold text-gray-900">WO #{order.order_id}</h3>
+                                <h3 className="text-lg font-bold text-white">WO #{order.order_id}</h3>
                                 <Badge className={getPriorityColor(order.priority)}>
                                   {order.priority}
                                 </Badge>
                               </div>
-                              <p className="text-sm text-gray-600">{getVehiclePlate(order.vehicle_id)}</p>
+                              <p className="text-sm text-gray-400">{getVehiclePlate(order.vehicle_id)}</p>
                             </div>
                           </div>
-                          <p className="text-sm text-gray-600 mb-3">{order.description}</p>
+                          <p className="text-sm text-gray-400 mb-3">{order.description}</p>
                           <div className="flex flex-wrap gap-4 text-xs text-gray-500">
                             <span>Scheduled: {format(order.scheduled_date, 'MMM dd, yyyy')}</span>
                             {order.completed_date && (
@@ -287,7 +287,7 @@ const Maintenance = () => {
                           <Badge variant={getWorkOrderBadge(order.status)}>
                             {order.status}
                           </Badge>
-                          <p className="text-2xl font-bold text-gray-900">Rp {(order.total_cost / 1000).toLocaleString()}K</p>
+                          <p className="text-2xl font-bold text-white">Rp {(order.total_cost / 1000).toLocaleString()}K</p>
                         </div>
                       </div>
                     </CardContent>
